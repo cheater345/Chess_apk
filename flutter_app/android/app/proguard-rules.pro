@@ -16,3 +16,8 @@
 
 # Keep model classes
 -keep class com.openchess.arena.** { *; }
+
+# Play Core
+-dontwarn com.google.android.play.core.splitcompat.SplitCompatApplication
+-dontwarn com.google.android.play.core.splitinstall.**
+-keep class com.google.android.play.core.** { *; }
