@@ -1,0 +1,79 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main, master, develop ]
+    paths:
+      - 'flutter_app/**'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.0'
+          channel: 'stable'
+          cache: true
+
+      - name: Create assets directories
+        run: |
+          mkdir -p flutter_app/assets/images flutter_app/assets/sounds flutter_app/assets/fonts
+          touch flutter_app/assets/fonts/ChessSans.ttf
+
+      - name: Create placeholder google-services.json
+        run: |
+          mkdir -p flutter_app/android/app
+          echo '{
+            "project_info": {
+              "project_number": "000000000000",
+              "project_id": "placeholder",
+              "storage_bucket": "placeholder.appspot.com"
+            },
+            "client": [{
+              "client_info": {
+                "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
+                "android_client_info": {
+                  "package_name": "com.openchess.arena"
+                }
+              },
+              "oauth_client": [],
+              "api_key": [{
+                "current_key": "placeholder"
+              }],
+              "services": {
+                "appinvite_service": {
+                  "other_platform_oauth_client": []
+                }
+              }
+            }],
+            "configuration_version": "1"
+          }' > flutter_app/android/app/google-services.json
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: flutter_app
+
+      - name: Build APK
+        run: flutter build apk --release
+        working-directory: flutter_app
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: openchess-apk-release
+          path: flutter_app/build/app/outputs/flutter-apk/*.apk
