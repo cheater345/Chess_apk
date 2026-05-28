@@ -261,23 +261,27 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget>
                 children: [
                   if (isLegalTarget)
                     piece == ''
-                        ? Center(
-                            child: Container(
-                              width: sqSize * 0.28,
-                              height: sqSize * 0.28,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: AppTheme.primaryGreen.withOpacity(0.5),
+                        ? Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppTheme.primaryGreen.withOpacity(0.3), width: 1),
+                              borderRadius: BorderRadius.circular(sqSize * 0.06),
+                            ),
+                            child: Center(
+                              child: Container(
+                                width: sqSize * 0.33,
+                                height: sqSize * 0.33,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppTheme.primaryGreen.withOpacity(0.65),
+                                  boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 2, offset: Offset(0, 1))],
+                                ),
                               ),
                             ),
                           )
                         : Container(
                             decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: AppTheme.errorRed.withOpacity(0.7),
-                                width: 2.5,
-                              ),
+                              border: Border.all(color: AppTheme.errorRed.withOpacity(0.8), width: 2.5),
+                              borderRadius: BorderRadius.circular(sqSize * 0.06),
                             ),
                           ),
                   if (piece != '')
