@@ -74,9 +74,15 @@ class GameHandler {
     }
 
     const chess = new Chess.Chess(game.fen);
-    const san = promotion
-      ? chess.move({ from, to, promotion: promotion.toLowerCase() })
-      : chess.move({ from, to });
+    let san;
+    try {
+      san = promotion
+        ? chess.move({ from, to, promotion: promotion.toLowerCase() })
+        : chess.move({ from, to });
+    } catch (e) {
+      this.socket.emit('error', { message: 'Illegal move' });
+      return;
+    }
 
     if (!san) {
       this.socket.emit('error', { message: 'Illegal move' });
