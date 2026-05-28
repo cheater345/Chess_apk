@@ -29,6 +29,13 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     _setupListeners();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.gameId != null) {
+        final socket = context.read<SocketProvider>();
+        final auth = context.read<AuthProvider>();
+        socket.emit('game:join', {'gameId': widget.gameId, 'uid': auth.user?.uid ?? ''});
+      }
+    });
   }
 
   void _setupListeners() {

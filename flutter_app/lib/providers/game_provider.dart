@@ -57,13 +57,18 @@ class GameProvider extends ChangeNotifier {
   void addMove(Map<String, dynamic> moveData) {
     if (_currentGame == null) return;
 
-    _currentGame!.moves.add(MoveModel.fromJson(moveData));
-    _currentGame!.moveCount++;
-    _currentGame!.currentTurn = _currentGame!.currentTurn == 'w' ? 'b' : 'w';
+    final details = moveData['moveDetails'] as Map<String, dynamic>? ?? moveData;
+    _currentGame!.moves.add(MoveModel.fromJson(details));
+    _currentGame!.moveCount = moveData['moveCount'] ?? _currentGame!.moveCount + 1;
+    _currentGame!.currentTurn = moveData['currentTurn'] ?? (_currentGame!.currentTurn == 'w' ? 'b' : 'w');
+
+    if (moveData['fen'] != null) {
+      _currentGame!.fen = moveData['fen'];
+    }
 
     if (moveData['clock'] != null) {
-      _clocks['white'] = moveData['clock']['white'].toDouble();
-      _clocks['black'] = moveData['clock']['black'].toDouble();
+      _clocks['white'] = (moveData['clock']['white'] as num).toDouble();
+      _clocks['black'] = (moveData['clock']['black'] as num).toDouble();
     }
 
     notifyListeners();
