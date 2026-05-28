@@ -265,16 +265,18 @@ class GameHandler {
 
   async _triggerAIBotMove(io, gameId) {
     const game = activeGames.get(gameId);
-    if (!game || !game.isBot) return;
+    if (!game || !game.isBot) { console.log(`[AI] no game or not bot ${gameId}`); return; }
 
     const chess = new Chess.Chess(game.fen);
-    if (chess.isGameOver()) return;
+    if (chess.isGameOver()) { console.log(`[AI] game over ${gameId}`); return; }
 
     const botColor = game.botColor;
-    if (game.currentTurn !== botColor) return;
+    if (game.currentTurn !== botColor) { console.log(`[AI] not bot turn ${game.currentTurn} vs ${botColor}`); return; }
 
+    console.log(`[AI] computing move for ${gameId} fen=${game.fen} color=${botColor} level=${game.botLevel}`);
     const best = ChessEngine.getBestMove(game.fen, botColor, game.botLevel);
-    if (!best) return;
+    console.log(`[AI] best move: ${JSON.stringify(best)}`);
+    if (!best) { console.log(`[AI] no best move`); return; }
 
     const from = best.from;
     const to = best.to;
