@@ -12,6 +12,7 @@ class ChessBoardWidget extends StatefulWidget {
   final String? lastMoveTo;
   final String? selectedSquare;
   final bool showCoordinates;
+  final String? playerColor;
 
   const ChessBoardWidget({
     super.key,
@@ -24,6 +25,7 @@ class ChessBoardWidget extends StatefulWidget {
     this.lastMoveTo,
     this.selectedSquare,
     this.showCoordinates = true,
+    this.playerColor,
   });
 
   @override
@@ -146,6 +148,12 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget>
 
   String get _activeColor => widget.fen.split(' ').length > 1 ? widget.fen.split(' ')[1] : 'w';
 
+  bool _allowedToSelect(String piece) {
+    final isWhite = piece == piece.toUpperCase();
+    if (widget.playerColor != null) return (isWhite ? 'white' : 'black') == widget.playerColor;
+    return (isWhite ? 'w' : 'b') == _activeColor;
+  }
+
   void _onPanStart(DragStartDetails details, double sqSize) {
     final pos = details.localPosition;
     final (f, r) = _tapToBoardCoords(pos, sqSize);
@@ -155,8 +163,7 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget>
     final piece = _getPieceAt(square);
     if (piece == '') return;
 
-    final isWhite = piece == piece.toUpperCase();
-    if ((isWhite ? 'w' : 'b') != _activeColor) return;
+    if (!_allowedToSelect(piece)) return;
 
     _pointerDownPos = pos;
     _isDragging = false;
@@ -206,9 +213,7 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget>
 
     if (_selectedSquare == null) {
       final piece = _getPieceAt(square);
-      if (piece != '') {
-        final isWhite = piece == piece.toUpperCase();
-        if ((isWhite ? 'w' : 'b') != _activeColor) return;
+      if (piece != '' && _allowedToSelect(piece)) {
         setState(() {
           _selectedSquare = square;
           _legalMoves = _getLegalMovesForSquare(square);
