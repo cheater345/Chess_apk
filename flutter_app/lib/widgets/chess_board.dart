@@ -150,7 +150,10 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget>
 
   bool _allowedToSelect(String piece) {
     final isWhite = piece == piece.toUpperCase();
-    if (widget.playerColor != null) return (isWhite ? 'white' : 'black') == widget.playerColor;
+    if (widget.playerColor != null) {
+      final playerTurn = _activeColor == (widget.playerColor == 'white' ? 'w' : 'b');
+      return playerTurn && (isWhite ? 'white' : 'black') == widget.playerColor;
+    }
     return (isWhite ? 'w' : 'b') == _activeColor;
   }
 
