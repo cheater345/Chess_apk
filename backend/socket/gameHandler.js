@@ -3,6 +3,8 @@ const { getDb, admin } = require('../config/firebase');
 const User = require('../models/User');
 const EloService = require('../services/EloService');
 const ChessEngine = require('../services/ChessEngine');
+const Chess = require('chess.js');
+const { v4: uuidv4 } = require('uuid');
 
 const activeGames = new Map();
 const activeTimers = new Map();
@@ -26,6 +28,7 @@ class GameHandler {
     socket.on('game:abort', (data) => handler.abortGame(data));
     socket.on('game:sync', (data) => handler.syncGame(data));
     socket.on('game:clock', (data) => handler.syncClock(data));
+    socket.on('game:create-ai', (data) => handler.createAIGame(data));
   }
 
   async joinGame(data) {
@@ -68,11 +71,22 @@ class GameHandler {
       return;
     }
 
-    const moveNotation = `${from}-${to}${promotion ? `=${promotion.toUpperCase()}` : ''}`;
-    game.moves.push({ from, to, promotion, notation: moveNotation, by: uid, time: moveTime || 0 });
+    const chess = new Chess.Chess(game.fen);
+    const san = promotion
+      ? chess.move({ from, to, promotion: promotion.toLowerCase() })
+      : chess.move({ from, to });
+
+    if (!san) {
+      this.socket.emit('error', { message: 'Illegal move' });
+      return;
+    }
+
+    game.moves.push({ from, to, promotion, notation: san.san, by: uid, time: moveTime || 0 });
     game.moveCount++;
     game.currentTurn = color === 'w' ? 'b' : 'w';
     game.lastMoveTime = new Date().toISOString();
+    game.fen = chess.fen();
+    game.moveHistory.push(san.san);
 
     if (isWhite) {
       game.players.white.clock = Math.max(0, game.players.white.clock - (moveTime || 0) / 1000);
@@ -82,28 +96,20 @@ class GameHandler {
       game.players.black.clock += game.increment;
     }
 
-    const moveNotationSimple = moveNotation.replace(/[^a-h1-8]/g, '');
-    const lastMoves = game.moveHistory.slice(-4);
+    const isCheckmate = chess.isCheckmate();
+    const isCheck = chess.isCheck();
+    const isStalemate = chess.isStalemate();
+    const isDraw = chess.isDraw();
+
     const moveDetails = {
       from, to, promotion,
-      piece: 'p',
-      captured: null,
+      piece: san.piece,
+      captured: san.captured || null,
       moveNumber: Math.ceil(game.moveCount / 2),
     };
 
-    if (game.moveHistory.length > 0) {
-      const lastMove = game.moveHistory[game.moveHistory.length - 1].toLowerCase();
-      const targetSquare = to.toLowerCase();
-      const lastTarget = lastMove.replace(/[^a-h1-8]/g, '').slice(-2);
-      if (targetSquare === lastTarget) {
-        moveDetails.captured = 'p';
-      }
-    }
-
-    game.moveHistory.push(moveNotation);
-
     this.io.to(`game:${gameId}`).emit('game:move', {
-      move: moveNotation,
+      move: san.san,
       moveDetails,
       fen: game.fen,
       currentTurn: game.currentTurn,
@@ -115,7 +121,19 @@ class GameHandler {
       moveCount: game.moveCount,
     });
 
+    if (isCheckmate || isStalemate || isDraw) {
+      const winner = isCheckmate ? (color === 'w' ? 'white' : 'black') : null;
+      const reason = isCheckmate ? 'checkmate' : isStalemate ? 'stalemate' : 'draw';
+      const result = Game.getGameResult(winner, reason);
+      await this.endGame(gameId, result, winner, reason);
+      return;
+    }
+
     activeGames.set(gameId, game);
+
+    if (game.isBot) {
+      setTimeout(() => this._triggerAIBotMove(this.io, gameId), 500);
+    }
   }
 
   async resign(data) {
@@ -178,6 +196,105 @@ class GameHandler {
         black: game.players.black.clock,
       });
     }
+  }
+
+  async createAIGame(data) {
+    const { uid, username, difficulty, playerColor } = data;
+    const gameId = uuidv4();
+    const botColor = playerColor === 'white' ? 'b' : 'w';
+    const humanColor = playerColor === 'white' ? 'w' : 'b';
+
+    const botName = `Bot_${['Easy','Med','Hard','Exp','GM'][difficulty || 3]}`;
+    const botElo = [800, 1100, 1500, 1900, 2200, 2600][difficulty || 3] || 1500;
+
+    const white =
+      humanColor === 'w'
+        ? { uid, username, elo: 1200 }
+        : { uid: `bot_${gameId}`, username: botName, elo: botElo };
+    const black =
+      humanColor === 'b'
+        ? { uid, username, elo: 1200 }
+        : { uid: `bot_${gameId}`, username: botName, elo: botElo };
+
+    const gameData = {
+      gameId,
+      whiteUid: white.uid,
+      whiteUsername: white.username,
+      whiteElo: white.elo,
+      blackUid: black.uid,
+      blackUsername: black.username,
+      blackElo: black.elo,
+      timeControl: 'rapid',
+      initialTime: 600,
+      increment: 5,
+      isRated: false,
+      isBot: true,
+      botLevel: difficulty || 3,
+      botColor,
+    };
+
+    const game = await Game.createGame(gameData);
+
+    activeGames.set(gameId, {
+      ...game,
+      clocks: { white: 600, black: 600 },
+      lastTick: Date.now(),
+    });
+
+    this.socket.emit('game:created', { gameId, playerColor });
+  }
+
+  async _triggerAIBotMove(io, gameId) {
+    const game = activeGames.get(gameId);
+    if (!game || !game.isBot) return;
+
+    const chess = new Chess.Chess(game.fen);
+    if (chess.isGameOver()) return;
+
+    const botColor = game.botColor;
+    if (game.currentTurn !== botColor) return;
+
+    const best = ChessEngine.getBestMove(game.fen, botColor, game.botLevel);
+    if (!best) return;
+
+    const from = best.from;
+    const to = best.to;
+    const promotion = best.promotion || null;
+
+    game.moves.push({
+      from, to, promotion,
+      notation: best.san,
+      by: `bot_${gameId}`,
+      time: 500,
+    });
+    game.moveCount++;
+    game.currentTurn = botColor === 'w' ? 'b' : 'w';
+    game.moveHistory.push(best.san);
+
+    const fen = chess.fen();
+    const isCheckmate = chess.isCheckmate();
+    const isCheck = chess.isCheck();
+    const isStalemate = chess.isStalemate();
+    const isDraw = chess.isDraw();
+
+    io.to(`game:${gameId}`).emit('game:move', {
+      move: best.san,
+      moveDetails: { from, to, promotion, piece: best.piece, captured: best.captured, moveNumber: Math.ceil(game.moveCount / 2) },
+      fen,
+      currentTurn: game.currentTurn,
+      clock: { white: game.players.white.clock, black: game.players.black.clock, increment: game.increment },
+      moveCount: game.moveCount,
+    });
+
+    if (isCheckmate || isStalemate || isDraw) {
+      const winner = isCheckmate ? (botColor === 'w' ? 'black' : 'white') : null;
+      const reason = isCheckmate ? 'checkmate' : isStalemate ? 'stalemate' : 'draw';
+      const result = Game.getGameResult(winner, reason);
+      await this.endGame(gameId, result, winner, reason);
+      return;
+    }
+
+    activeGames.set(gameId, game);
   }
 
   async endGame(gameId, result, winner, reason) {

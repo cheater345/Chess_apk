@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../config/theme.dart';
+import '../../providers/socket_provider.dart';
+import '../../providers/auth_provider.dart';
+import 'game_screen.dart';
 
 class PlayAIScreen extends StatefulWidget {
   const PlayAIScreen({super.key});
@@ -11,6 +15,7 @@ class PlayAIScreen extends StatefulWidget {
 class _PlayAIScreenState extends State<PlayAIScreen> {
   int _selectedDifficulty = 3;
   bool _isBlack = false;
+  bool _isCreating = false;
 
   final List<Map<String, dynamic>> _difficulties = [
     {'name': 'Beginner', 'el': 800, 'color': const Color(0xFF2ECC71), 'icon': '🌱', 'desc': 'Makes random mistakes'},
@@ -23,6 +28,37 @@ class _PlayAIScreenState extends State<PlayAIScreen> {
 
   String get _selectedLevel => _difficulties[_selectedDifficulty]['name'];
   int get _selectedElo => _difficulties[_selectedDifficulty]['el'];
+
+  void _startAIGame() {
+    final socket = context.read<SocketProvider>();
+    final auth = context.read<AuthProvider>();
+    final user = auth.user;
+    if (user == null || socket.socket == null) return;
+
+    setState(() => _isCreating = true);
+
+    socket.socket!.once('game:created', (data) {
+      if (!mounted) return;
+      setState(() => _isCreating = false);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => GameScreen(
+            gameId: data['gameId'],
+            playerColor: _isBlack ? 'black' : 'white',
+            opponent: _difficulties[_selectedDifficulty]['name'],
+          ),
+        ),
+      );
+    });
+
+    socket.socket!.emit('game:create-ai', {
+      'uid': user.uid,
+      'username': user.username,
+      'difficulty': _selectedDifficulty,
+      'playerColor': _isBlack ? 'black' : 'white',
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +81,11 @@ class _PlayAIScreenState extends State<PlayAIScreen> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: _isCreating ? null : _startAIGame,
                 style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 18)),
-                child: Text('Play as ${_isBlack ? 'Black' : 'White'} vs $_selectedLevel', style: const TextStyle(fontSize: 16)),
+                child: _isCreating
+                  ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                  : Text('Play as ${_isBlack ? 'Black' : 'White'} vs $_selectedLevel', style: const TextStyle(fontSize: 16)),
               ),
             ),
           ],

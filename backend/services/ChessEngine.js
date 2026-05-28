@@ -1,3 +1,5 @@
+const Chess = require('chess.js');
+
 class ChessEngine {
   constructor() {
     this.pieceValues = {
@@ -171,6 +173,39 @@ class ChessEngine {
   getOpeningName(moveHistory, openingBook = {}) {
     const pgn = moveHistory.join(' ');
     return openingBook[pgn] || null;
+  }
+
+  getBestMove(fen, color = 'b', skillLevel = 3) {
+    const chess = new Chess.Chess(fen);
+    const legalMoves = chess.moves({ verbose: true });
+    if (legalMoves.length === 0) return null;
+
+    const isWhite = color === 'w';
+    const factor = isWhite ? 1 : -1;
+
+    const scored = legalMoves.map((move) => {
+      chess.move(move.san);
+      const score = this.evaluateBoard(chess.fen(), color) * factor;
+      chess.undo();
+      return { ...move, score };
+    });
+
+    scored.sort((a, b) => b.score - a.score);
+
+    if (skillLevel <= 0) {
+      const idx = Math.floor(Math.random() * Math.min(3, scored.length));
+      return scored[idx];
+    }
+
+    const noise = Math.max(0, 5 - skillLevel) * 50;
+    const topScore = scored[0].score;
+    const candidates = scored.filter((m) => m.score >= topScore - noise);
+
+    if (Math.random() < 0.1 * (5 - Math.min(skillLevel, 5)) && candidates.length > 1) {
+      return candidates[Math.floor(Math.random() * candidates.length)];
+    }
+
+    return scored[0];
   }
 }
 
