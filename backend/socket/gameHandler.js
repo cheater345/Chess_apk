@@ -321,8 +321,10 @@ class GameHandler {
       pgn: game.moveHistory.join(' '),
     };
 
-    const db = getDb();
-    await db.collection('games').doc(gameId).update(gameData);
+    if (!game.isBot) {
+      const db = getDb();
+      await db.collection('games').doc(gameId).update(gameData);
+    }
 
     if (game.isRated && winner) {
       const tc = game.timeControl;
