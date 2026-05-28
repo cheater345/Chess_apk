@@ -282,6 +282,9 @@ class GameHandler {
     const to = best.to;
     const promotion = best.promotion || null;
 
+    chess.move(best.san);
+    game.fen = chess.fen();
+
     game.moves.push({
       from, to, promotion,
       notation: best.san,
@@ -292,7 +295,7 @@ class GameHandler {
     game.currentTurn = botColor === 'w' ? 'b' : 'w';
     game.moveHistory.push(best.san);
 
-    const fen = chess.fen();
+    const fen = game.fen;
     const isCheckmate = chess.isCheckmate();
     const isCheck = chess.isCheck();
     const isStalemate = chess.isStalemate();
