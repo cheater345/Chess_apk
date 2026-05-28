@@ -37,8 +37,9 @@ class _PlayAIScreenState extends State<PlayAIScreen> {
 
     setState(() => _isCreating = true);
 
-    socket.socket!.once('game:created', (data) {
+    void handler(dynamic data) {
       if (!mounted) return;
+      socket.socket!.off('game:created');
       setState(() => _isCreating = false);
       Navigator.pushReplacement(
         context,
@@ -46,11 +47,12 @@ class _PlayAIScreenState extends State<PlayAIScreen> {
           builder: (_) => GameScreen(
             gameId: data['gameId'],
             playerColor: _isBlack ? 'black' : 'white',
-            opponent: _difficulties[_selectedDifficulty]['name'],
+            opponent: {'username': _difficulties[_selectedDifficulty]['name']},
           ),
         ),
       );
-    });
+    }
+    socket.socket!.on('game:created', handler);
 
     socket.socket!.emit('game:create-ai', {
       'uid': user.uid,
