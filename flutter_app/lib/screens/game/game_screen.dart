@@ -124,7 +124,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: ChessBoardWidget(
                 fen: game.currentGame?.fen ?? 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
-                isFlipped: game.currentGame?.getPlayerColor(userId) == 'black',
+                isFlipped: widget.playerColor != null ? widget.playerColor == 'black' : game.currentGame?.getPlayerColor(userId) == 'black',
                 interactive: game.currentGame?.isActive ?? false,
                 onMove: (from, to) {
                   final socket = context.read<SocketProvider>();

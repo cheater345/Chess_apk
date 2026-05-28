@@ -233,7 +233,7 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget>
 
     for (int rank = 0; rank < 8; rank++) {
       for (int file = 0; file < 8; file++) {
-        final dr = widget.isFlipped ? rank : 7 - rank;
+        final dr = widget.isFlipped ? 7 - rank : rank;
         final df = widget.isFlipped ? 7 - file : file;
 
         final squareName = '${String.fromCharCode(97 + df)}${dr + 1}';
