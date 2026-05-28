@@ -5,6 +5,17 @@ const USERS_COLLECTION = 'users';
 const PROFILES_COLLECTION = 'profiles';
 
 class User {
+  static _serialize(doc) {
+    if (!doc) return null;
+    const data = { id: doc.id, ...doc.data() };
+    for (const key of ['createdAt', 'lastLogin', 'lastActiveAt']) {
+      if (data[key] && typeof data[key].toDate === 'function') {
+        data[key] = data[key].toDate().toISOString();
+      }
+    }
+    return data;
+  }
+
   static async createUser(uid, data) {
     const db = getDb();
     const userData = {
@@ -63,14 +74,15 @@ class User {
     };
 
     await db.collection(USERS_COLLECTION).doc(uid).set(userData);
-    return userData;
+    const saved = await db.collection(USERS_COLLECTION).doc(uid).get();
+    return User._serialize(saved);
   }
 
   static async getUserById(uid) {
     const db = getDb();
     const doc = await db.collection(USERS_COLLECTION).doc(uid).get();
     if (!doc.exists) return null;
-    return { id: doc.id, ...doc.data() };
+    return User._serialize(doc);
   }
 
   static async getUserByUsername(username) {
@@ -81,8 +93,7 @@ class User {
       .limit(1)
       .get();
     if (snapshot.empty) return null;
-    const doc = snapshot.docs[0];
-    return { id: doc.id, ...doc.data() };
+    return User._serialize(snapshot.docs[0]);
   }
 
   static async updateUser(uid, updates) {

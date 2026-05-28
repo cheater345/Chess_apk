@@ -11,6 +11,20 @@ const GAME_RESULT = {
 };
 
 class Game {
+  static _serialize(doc) {
+    if (!doc) return null;
+    const data = { id: doc.id, ...doc.data() };
+    for (const key of ['startTime', 'endTime', 'lastMoveTime']) {
+      if (data[key] && typeof data[key].toDate === 'function') {
+        data[key] = data[key].toDate().toISOString();
+      }
+    }
+    if (data.movedAt && typeof data.movedAt.toDate === 'function') {
+      data.movedAt = data.movedAt.toDate().toISOString();
+    }
+    return data;
+  }
+
   static async createGame(gameData) {
     const db = getDb();
     const game = {
@@ -61,14 +75,15 @@ class Game {
     };
 
     await db.collection(GAMES_COLLECTION).doc(game.gameId).set(game);
-    return game;
+    const saved = await db.collection(GAMES_COLLECTION).doc(game.gameId).get();
+    return Game._serialize(saved);
   }
 
   static async getGame(gameId) {
     const db = getDb();
     const doc = await db.collection(GAMES_COLLECTION).doc(gameId).get();
     if (!doc.exists) return null;
-    return { id: doc.id, ...doc.data() };
+    return Game._serialize(doc);
   }
 
   static async updateGame(gameId, updates) {
@@ -93,10 +108,10 @@ class Game {
       .get();
 
     const games = [];
-    snapshot.docs.forEach((doc) => games.push({ id: doc.id, ...doc.data() }));
+    snapshot.docs.forEach((doc) => games.push(Game._serialize(doc)));
     snapshot2.docs.forEach((doc) => {
       if (!games.find((g) => g.id === doc.id)) {
-        games.push({ id: doc.id, ...doc.data() });
+        games.push(Game._serialize(doc));
       }
     });
 
@@ -124,16 +139,16 @@ class Game {
       .get();
 
     const games = [];
-    snapshot.docs.forEach((doc) => games.push({ id: doc.id, ...doc.data() }));
+    snapshot.docs.forEach((doc) => games.push(Game._serialize(doc)));
     snapshot2.docs.forEach((doc) => {
       if (!games.find((g) => g.id === doc.id)) {
-        games.push({ id: doc.id, ...doc.data() });
+        games.push(Game._serialize(doc));
       }
     });
 
     games.sort((a, b) => {
-      const aTime = a.endTime?.toDate?.() || new Date(0);
-      const bTime = b.endTime?.toDate?.() || new Date(0);
+      const aTime = a.endTime ? new Date(a.endTime) : new Date(0);
+      const bTime = b.endTime ? new Date(b.endTime) : new Date(0);
       return bTime - aTime;
     });
 
@@ -149,7 +164,7 @@ class Game {
       .orderBy('startTime', 'desc')
       .limit(limit)
       .get();
-    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    return snapshot.docs.map((doc) => Game._serialize(doc));
   }
 
   static async getLiveGames(limit = 50) {
