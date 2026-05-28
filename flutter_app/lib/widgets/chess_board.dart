@@ -45,6 +45,12 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
     return true;
   }
 
+  bool _isUsersPiece(String piece) {
+    if (widget.playerColor == null) return true;
+    final isWhite = piece == piece.toUpperCase();
+    return (isWhite ? 'white' : 'black') == widget.playerColor;
+  }
+
   bool _isPromotion(String from, String to) {
     final piece = _getPieceAt(from);
     if (piece == '') return false;
@@ -219,6 +225,8 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
         final isLight = (dr + df) % 2 == 0;
         final isSelected = _selectedSquare == sq;
 
+        final canMove = piece != '' && _selectedSquare == null && _isUsersPiece(piece) && _getLegalMovesForSquare(sq).isNotEmpty;
+
         pieces.add(Positioned(
           left: file * sqSize, top: rank * sqSize,
           child: Container(
@@ -229,7 +237,26 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
                   : isLight ? _lightSquare : _darkSquare,
               border: isSelected ? Border.all(color: const Color(0xFF4A6B3A), width: 3) : null,
             ),
-            child: piece != '' ? Center(child: _buildPiece(piece, sqSize)) : null,
+            child: piece != ''
+                ? Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Center(child: _buildPiece(piece, sqSize)),
+                      if (canMove)
+                        Positioned(
+                          bottom: sqSize * 0.04,
+                          child: Container(
+                            width: sqSize * 0.18,
+                            height: sqSize * 0.18,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color(0xFF4A6B3A),
+                            ),
+                          ),
+                        ),
+                    ],
+                  )
+                : null,
           ),
         ));
       }
