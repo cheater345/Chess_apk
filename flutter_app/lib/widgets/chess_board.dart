@@ -29,12 +29,16 @@ class ChessBoardWidget extends StatefulWidget {
   State<ChessBoardWidget> createState() => _ChessBoardWidgetState();
 }
 
-class _ChessBoardWidgetState extends State<ChessBoardWidget> {
+class _ChessBoardWidgetState extends State<ChessBoardWidget>
+    with SingleTickerProviderStateMixin {
   String? _selectedSquare;
   List<String> _legalMoves = [];
   bool _isDragging = false;
   String? _dragFrom;
   Offset? _dragPosition;
+  Offset? _pointerDownPos;
+  late AnimationController _pulseController;
+  Set<String> _lastMoveSquares = {};
 
   final Map<String, String> _unicodePieces = {
     'K': '♔', 'Q': '♕', 'R': '♖', 'B': '♗', 'N': '♘', 'P': '♙',
@@ -42,14 +46,69 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
   };
 
   @override
+  void initState() {
+    super.initState();
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+    _updateLastMoveSquares();
+  }
+
+  @override
+  void didUpdateWidget(ChessBoardWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.fen != widget.fen) {
+      _selectedSquare = null;
+      _legalMoves = [];
+      _updateLastMoveSquares();
+    }
+  }
+
+  void _updateLastMoveSquares() {
+    _lastMoveSquares = {};
+    if (widget.lastMoveFrom != null) _lastMoveSquares.add(widget.lastMoveFrom!);
+    if (widget.lastMoveTo != null) _lastMoveSquares.add(widget.lastMoveTo!);
+  }
+
+  @override
+  void dispose() {
+    _pulseController.dispose();
+    super.dispose();
+  }
+
+  (int, int) _tapToBoardCoords(Offset localPos, double sqSize) {
+    final file = (localPos.dx / sqSize).floor();
+    final rank = (localPos.dy / sqSize).floor();
+    return (file.clamp(0, 7), rank.clamp(0, 7));
+  }
+
+  String _coordsToSquare(int file, int rank) {
+    final df = widget.isFlipped ? 7 - file : file;
+    final dr = widget.isFlipped ? rank : 7 - rank;
+    return '${String.fromCharCode(97 + df)}${dr + 1}';
+  }
+
+  (int, int) _squareToCoords(String square) {
+    final file = square.codeUnitAt(0) - 97;
+    final rank = int.parse(square[1]) - 1;
+    final df = widget.isFlipped ? 7 - file : file;
+    final dr = widget.isFlipped ? rank : 7 - rank;
+    return (df, dr);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final boardSize = constraints.maxWidth;
-        final squareSize = boardSize / 8;
+        final sqSize = boardSize / 8;
 
         return GestureDetector(
-          onTapDown: widget.interactive ? (details) => _handleTap(details, squareSize, boardSize) : null,
+          onTapUp: widget.interactive ? (details) => _handleTap(details, sqSize) : null,
+          onPanStart: widget.interactive ? (details) => _onPanStart(details, sqSize) : null,
+          onPanUpdate: widget.interactive && _isDragging ? (details) => _onPanUpdate(details) : null,
+          onPanEnd: widget.interactive && _isDragging ? (details) => _onPanEnd(details, sqSize) : null,
           child: Container(
             width: boardSize,
             height: boardSize,
@@ -57,22 +116,29 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
               borderRadius: BorderRadius.circular(4),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  blurRadius: 20,
-                  offset: const Offset(0, 8),
+                  color: Colors.black.withOpacity(0.4),
+                  blurRadius: 24,
+                  offset: const Offset(0, 10),
                 ),
               ],
             ),
-            child: Stack(
-              children: [
-                _buildBoard(squareSize),
-                if (_isDragging && _dragFrom != null && _dragPosition != null)
-                  Positioned(
-                    left: _dragPosition!.dx - squareSize / 2,
-                    top: _dragPosition!.dy - squareSize / 2,
-                    child: _buildPiece(_getPieceAt(_dragFrom!), squareSize * 1.1, true),
-                  ),
-              ],
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: Stack(
+                children: [
+                  _buildBoard(sqSize),
+                  if (_isDragging && _dragFrom != null && _dragPosition != null)
+                    Positioned(
+                      left: _dragPosition!.dx - sqSize / 2,
+                      top: _dragPosition!.dy - sqSize / 2,
+                      child: _buildPiece(
+                        _getPieceAt(_dragFrom!),
+                        sqSize * 1.15,
+                        true,
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
         );
@@ -80,65 +146,154 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
     );
   }
 
-  Widget _buildBoard(double squareSize) {
+  void _onPanStart(DragStartDetails details, double sqSize) {
+    final pos = details.localPosition;
+    final (f, r) = _tapToBoardCoords(pos, sqSize);
+    if (f < 0 || f > 7 || r < 0 || r > 7) return;
+
+    final square = _coordsToSquare(f, r);
+    final piece = _getPieceAt(square);
+    if (piece == '') return;
+
+    final isWhite = piece == piece.toUpperCase();
+    final playerPieces = isWhite ? 'PKQRBN' : 'pkqrbn';
+    if (!playerPieces.contains(piece)) return;
+
+    _pointerDownPos = pos;
+    _isDragging = false;
+    _dragFrom = square;
+    _dragPosition = pos;
+    _selectedSquare = square;
+    _legalMoves = _getLegalMovesForSquare(square);
+    setState(() {});
+  }
+
+  void _onPanUpdate(DragUpdateDetails details) {
+    if (_dragFrom == null) return;
+    final dist = (details.localPosition - (_pointerDownPos ?? details.localPosition)).distance;
+    if (dist > 10) _isDragging = true;
+    setState(() {
+      _dragPosition = details.localPosition;
+    });
+  }
+
+  void _onPanEnd(DragEndDetails details, double sqSize) {
+    if (_dragFrom == null) return;
+
+    final pos = _dragPosition ?? details.localPosition;
+    final (f, r) = _tapToBoardCoords(pos, sqSize);
+    final targetSquare = _coordsToSquare(f, r);
+
+    if (_legalMoves.contains(targetSquare) && widget.onMove != null) {
+      widget.onMove!(_dragFrom!, targetSquare);
+    }
+
+    setState(() {
+      _isDragging = false;
+      _dragFrom = null;
+      _dragPosition = null;
+      _pointerDownPos = null;
+      _selectedSquare = null;
+      _legalMoves = [];
+    });
+  }
+
+  void _handleTap(TapUpDetails details, double sqSize) {
+    final pos = details.localPosition;
+    final (f, r) = _tapToBoardCoords(pos, sqSize);
+    if (f < 0 || f > 7 || r < 0 || r > 7) return;
+
+    final square = _coordsToSquare(f, r);
+
+    if (_selectedSquare == null) {
+      final piece = _getPieceAt(square);
+      if (piece != '') {
+        final isWhite = piece == piece.toUpperCase();
+        final playerPieces = isWhite ? 'PKQRBN' : 'pkqrbn';
+        if (!playerPieces.contains(piece)) return;
+        setState(() {
+          _selectedSquare = square;
+          _legalMoves = _getLegalMovesForSquare(square);
+        });
+      }
+    } else {
+      if (_legalMoves.contains(square) && widget.onMove != null) {
+        widget.onMove!(_selectedSquare!, square);
+      }
+      setState(() {
+        _selectedSquare = null;
+        _legalMoves = [];
+      });
+    }
+  }
+
+  Widget _buildBoard(double sqSize) {
     final board = _fenToBoard();
-    final squares = <Widget>[];
+    final pieces = <Widget>[];
 
     for (int rank = 0; rank < 8; rank++) {
       for (int file = 0; file < 8; file++) {
-        final displayRank = widget.isFlipped ? rank : 7 - rank;
-        final displayFile = widget.isFlipped ? 7 - file : file;
-        final isLight = (displayRank + displayFile) % 2 == 0;
+        final dr = widget.isFlipped ? rank : 7 - rank;
+        final df = widget.isFlipped ? 7 - file : file;
 
-        final squareName = String.fromCharCode(97 + displayFile) + (displayRank + 1).toString();
-        final piece = board[displayRank][displayFile];
+        final squareName = '${String.fromCharCode(97 + df)}${dr + 1}';
+        final piece = board[dr][df];
+        final isLight = (dr + df) % 2 == 0;
+        final isLastMove = _lastMoveSquares.contains(squareName);
+        final isSelected = _selectedSquare == squareName;
+        final isLegalTarget = _legalMoves.contains(squareName) && _selectedSquare != null;
 
-        squares.add(
+        pieces.add(
           Positioned(
-            left: file * squareSize,
-            top: rank * squareSize,
+            left: file * sqSize,
+            top: rank * sqSize,
             child: Container(
-              width: squareSize,
-              height: squareSize,
+              width: sqSize,
+              height: sqSize,
               decoration: BoxDecoration(
-                color: _getSquareColor(squareName, isLight),
-                border: widget.lastMoveTo == squareName || widget.lastMoveFrom == squareName
-                    ? Border.all(color: Colors.yellow.withOpacity(0.5), width: 2)
-                    : null,
+                color: isSelected
+                    ? AppTheme.primaryGreen.withOpacity(0.5)
+                    : isLastMove
+                        ? const Color(0x55FFFF00)
+                        : isLight
+                            ? AppTheme.boardGreenLight
+                            : AppTheme.boardGreenDark,
               ),
               child: Stack(
                 children: [
-                  if (_legalMoves.contains(squareName) && piece == '')
-                    Center(
-                      child: Container(
-                        width: squareSize * 0.3,
-                        height: squareSize * 0.3,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppTheme.primaryGreen.withOpacity(0.4),
-                        ),
-                      ),
-                    ),
-                  if (_legalMoves.contains(squareName) && piece != '')
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: AppTheme.errorRed.withOpacity(0.3),
-                      ),
-                    ),
+                  if (isLegalTarget)
+                    piece == ''
+                        ? Center(
+                            child: Container(
+                              width: sqSize * 0.28,
+                              height: sqSize * 0.28,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppTheme.primaryGreen.withOpacity(0.5),
+                              ),
+                            ),
+                          )
+                        : Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(sqSize * 0.15),
+                              color: AppTheme.errorRed.withOpacity(0.35),
+                            ),
+                          ),
                   if (piece != '')
                     Center(
-                      child: _buildPiece(piece, squareSize, false),
+                      child: _buildPiece(piece, sqSize, false),
                     ),
                   if (widget.showCoordinates && file == (widget.isFlipped ? 7 : 0))
                     Positioned(
                       left: 2,
-                      bottom: 0,
+                      bottom: 1,
                       child: Text(
                         squareName[1],
                         style: TextStyle(
-                          color: isLight ? AppTheme.boardGreenDark.withOpacity(0.7) : AppTheme.boardGreenLight.withOpacity(0.7),
-                          fontSize: 10,
+                          color: isLight
+                              ? AppTheme.boardGreenDark.withOpacity(0.6)
+                              : AppTheme.boardGreenLight.withOpacity(0.6),
+                          fontSize: 9,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -146,12 +301,14 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
                   if (widget.showCoordinates && rank == (widget.isFlipped ? 0 : 7))
                     Positioned(
                       right: 2,
-                      top: 0,
+                      top: 1,
                       child: Text(
                         squareName[0].toUpperCase(),
                         style: TextStyle(
-                          color: isLight ? AppTheme.boardGreenDark.withOpacity(0.7) : AppTheme.boardGreenLight.withOpacity(0.7),
-                          fontSize: 10,
+                          color: isLight
+                              ? AppTheme.boardGreenDark.withOpacity(0.6)
+                              : AppTheme.boardGreenLight.withOpacity(0.6),
+                          fontSize: 9,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -164,70 +321,31 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
       }
     }
 
-    return Stack(children: squares);
+    return Stack(children: pieces);
   }
 
   Widget _buildPiece(String piece, double size, bool isDragging) {
-    return Transform.scale(
-      scale: isDragging ? 1.1 : 1.0,
-      child: Text(
-        _unicodePieces[piece] ?? '',
-        style: TextStyle(
-          fontSize: size * 0.75,
-          color: piece == piece.toUpperCase() ? Colors.white : Colors.black,
-          shadows: [
-            Shadow(
-              color: Colors.black.withOpacity(0.3),
-              blurRadius: 2,
-              offset: const Offset(1, 1),
-            ),
-          ],
+    return AnimatedScale(
+      scale: 1.0,
+      duration: const Duration(milliseconds: 150),
+      child: Transform.scale(
+        scale: isDragging ? 1.15 : 1.0,
+        child: Text(
+          _unicodePieces[piece] ?? '',
+          style: TextStyle(
+            fontSize: size * 0.78,
+            color: piece == piece.toUpperCase() ? Colors.white : Colors.black87,
+            shadows: [
+              Shadow(
+                color: Colors.black.withOpacity(isDragging ? 0.5 : 0.35),
+                blurRadius: isDragging ? 8 : 3,
+                offset: const Offset(2, 2),
+              ),
+            ],
+          ),
         ),
       ),
     );
-  }
-
-  Color _getSquareColor(String square, bool isLight) {
-    if (_selectedSquare == square) {
-      return AppTheme.primaryGreen.withOpacity(0.6);
-    }
-    if (widget.lastMoveFrom == square || widget.lastMoveTo == square) {
-      return Colors.yellow.withOpacity(0.3);
-    }
-    if (widget.highlightedSquares?.contains(square) ?? false) {
-      return AppTheme.primaryGreen.withOpacity(0.4);
-    }
-    return isLight ? AppTheme.boardGreenDark : AppTheme.boardGreenLight;
-  }
-
-  void _handleTap(TapDownDetails details, double squareSize, double boardSize) {
-    final file = (details.localPosition.dx / squareSize).floor();
-    final rank = (details.localPosition.dy / squareSize).floor();
-
-    if (file < 0 || file > 7 || rank < 0 || rank > 7) return;
-
-    final displayFile = widget.isFlipped ? 7 - file : file;
-    final displayRank = widget.isFlipped ? rank : 7 - rank;
-
-    final squareName = String.fromCharCode(97 + displayFile) + (displayRank + 1).toString();
-
-    if (_selectedSquare == null) {
-      final piece = _getPieceAt(squareName);
-      if (piece != '') {
-        setState(() {
-          _selectedSquare = squareName;
-          _legalMoves = _getLegalMovesForSquare(squareName);
-        });
-      }
-    } else {
-      if (_legalMoves.contains(squareName) && widget.onMove != null) {
-        widget.onMove!(_selectedSquare!, squareName);
-      }
-      setState(() {
-        _selectedSquare = null;
-        _legalMoves = [];
-      });
-    }
   }
 
   String _getPieceAt(String square) {
@@ -253,24 +371,24 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
         final startRank = isWhite ? 1 : 6;
 
         if (rank + dir >= 0 && rank + dir < 8) {
-          if (_getPieceAt(String.fromCharCode(97 + file) + (rank + dir + 1).toString()) == '') {
-            moves.add(String.fromCharCode(97 + file) + (rank + dir + 1).toString());
+          if (_getPieceAt('${String.fromCharCode(97 + file)}${rank + dir + 1}') == '') {
+            moves.add('${String.fromCharCode(97 + file)}${rank + dir + 1}');
             if (rank == startRank) {
-              if (_getPieceAt(String.fromCharCode(97 + file) + (rank + 2 * dir + 1).toString()) == '') {
-                moves.add(String.fromCharCode(97 + file) + (rank + 2 * dir + 1).toString());
+              if (_getPieceAt('${String.fromCharCode(97 + file)}${rank + 2 * dir + 1}') == '') {
+                moves.add('${String.fromCharCode(97 + file)}${rank + 2 * dir + 1}');
               }
             }
           }
           if (file > 0) {
-            final cap = _getPieceAt(String.fromCharCode(97 + file - 1) + (rank + dir + 1).toString());
+            final cap = _getPieceAt('${String.fromCharCode(97 + file - 1)}${rank + dir + 1}');
             if (cap != '' && (cap == cap.toUpperCase()) != isWhite) {
-              moves.add(String.fromCharCode(97 + file - 1) + (rank + dir + 1).toString());
+              moves.add('${String.fromCharCode(97 + file - 1)}${rank + dir + 1}');
             }
           }
           if (file < 7) {
-            final cap = _getPieceAt(String.fromCharCode(97 + file + 1) + (rank + dir + 1).toString());
+            final cap = _getPieceAt('${String.fromCharCode(97 + file + 1)}${rank + dir + 1}');
             if (cap != '' && (cap == cap.toUpperCase()) != isWhite) {
-              moves.add(String.fromCharCode(97 + file + 1) + (rank + dir + 1).toString());
+              moves.add('${String.fromCharCode(97 + file + 1)}${rank + dir + 1}');
             }
           }
         }
@@ -282,9 +400,9 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
           final r = rank + o[0];
           final f = file + o[1];
           if (r >= 0 && r < 8 && f >= 0 && f < 8) {
-            final target = _getPieceAt(String.fromCharCode(97 + f) + (r + 1).toString());
+            final target = _getPieceAt('${String.fromCharCode(97 + f)}${r + 1}');
             if (target == '' || (target == target.toUpperCase()) != isWhite) {
-              moves.add(String.fromCharCode(97 + f) + (r + 1).toString());
+              moves.add('${String.fromCharCode(97 + f)}${r + 1}');
             }
           }
         }
@@ -296,12 +414,12 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
             final r = rank + d[0] * i;
             final f = file + d[1] * i;
             if (r < 0 || r >= 8 || f < 0 || f >= 8) break;
-            final target = _getPieceAt(String.fromCharCode(97 + f) + (r + 1).toString());
+            final target = _getPieceAt('${String.fromCharCode(97 + f)}${r + 1}');
             if (target == '') {
-              moves.add(String.fromCharCode(97 + f) + (r + 1).toString());
+              moves.add('${String.fromCharCode(97 + f)}${r + 1}');
             } else {
               if ((target == target.toUpperCase()) != isWhite) {
-                moves.add(String.fromCharCode(97 + f) + (r + 1).toString());
+                moves.add('${String.fromCharCode(97 + f)}${r + 1}');
               }
               break;
             }
@@ -315,12 +433,12 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
             final r = rank + d[0] * i;
             final f = file + d[1] * i;
             if (r < 0 || r >= 8 || f < 0 || f >= 8) break;
-            final target = _getPieceAt(String.fromCharCode(97 + f) + (r + 1).toString());
+            final target = _getPieceAt('${String.fromCharCode(97 + f)}${r + 1}');
             if (target == '') {
-              moves.add(String.fromCharCode(97 + f) + (r + 1).toString());
+              moves.add('${String.fromCharCode(97 + f)}${r + 1}');
             } else {
               if ((target == target.toUpperCase()) != isWhite) {
-                moves.add(String.fromCharCode(97 + f) + (r + 1).toString());
+                moves.add('${String.fromCharCode(97 + f)}${r + 1}');
               }
               break;
             }
@@ -334,12 +452,12 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
             final r = rank + d[0] * i;
             final f = file + d[1] * i;
             if (r < 0 || r >= 8 || f < 0 || f >= 8) break;
-            final target = _getPieceAt(String.fromCharCode(97 + f) + (r + 1).toString());
+            final target = _getPieceAt('${String.fromCharCode(97 + f)}${r + 1}');
             if (target == '') {
-              moves.add(String.fromCharCode(97 + f) + (r + 1).toString());
+              moves.add('${String.fromCharCode(97 + f)}${r + 1}');
             } else {
               if ((target == target.toUpperCase()) != isWhite) {
-                moves.add(String.fromCharCode(97 + f) + (r + 1).toString());
+                moves.add('${String.fromCharCode(97 + f)}${r + 1}');
               }
               break;
             }
@@ -352,9 +470,9 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
           final r = rank + d[0];
           final f = file + d[1];
           if (r >= 0 && r < 8 && f >= 0 && f < 8) {
-            final target = _getPieceAt(String.fromCharCode(97 + f) + (r + 1).toString());
+            final target = _getPieceAt('${String.fromCharCode(97 + f)}${r + 1}');
             if (target == '' || (target == target.toUpperCase()) != isWhite) {
-              moves.add(String.fromCharCode(97 + f) + (r + 1).toString());
+              moves.add('${String.fromCharCode(97 + f)}${r + 1}');
             }
           }
         }
