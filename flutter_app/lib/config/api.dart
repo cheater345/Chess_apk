@@ -1,6 +1,6 @@
 class ApiConfig {
-  static const String baseUrl = 'http://localhost:3000';
-  static const String socketUrl = 'http://localhost:3000';
+  static const String baseUrl = 'http://192.168.100.56:3000';
+  static const String socketUrl = 'http://192.168.100.56:3000';
 
   static const String apiV1 = '$baseUrl/api';
 
