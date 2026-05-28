@@ -35,24 +35,26 @@ class GameHandler {
     const { gameId, uid } = data;
     this.socket.join(`game:${gameId}`);
 
-    const game = await Game.getGame(gameId);
+    let game = activeGames.get(gameId);
     if (!game) {
-      this.socket.emit('error', { message: 'Game not found' });
-      return;
-    }
-
-    if (!activeGames.has(gameId)) {
-      activeGames.set(gameId, {
-        ...game,
-        clocks: {
-          white: game.initialTime,
-          black: game.initialTime,
-        },
+      const dbGame = await Game.getGame(gameId);
+      if (!dbGame) {
+        this.socket.emit('error', { message: 'Game not found' });
+        return;
+      }
+      game = {
+        ...dbGame,
+        clocks: { white: dbGame.initialTime, black: dbGame.initialTime },
         lastTick: Date.now(),
-      });
+      };
+      activeGames.set(gameId, game);
     }
 
-    this.socket.emit('game:state', activeGames.get(gameId));
+    const state = activeGames.get(gameId);
+    if (!state.clocks) {
+      state.clocks = { white: state.players.white.clock, black: state.players.black.clock };
+    }
+    this.socket.emit('game:state', state);
     this.socket.to(`game:${gameId}`).emit('player:joined', { uid, username: game.players.white.uid === uid ? game.players.white.username : game.players.black.username });
   }
 
