@@ -146,6 +146,8 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget>
     );
   }
 
+  String get _activeColor => widget.fen.split(' ').length > 1 ? widget.fen.split(' ')[1] : 'w';
+
   void _onPanStart(DragStartDetails details, double sqSize) {
     final pos = details.localPosition;
     final (f, r) = _tapToBoardCoords(pos, sqSize);
@@ -156,8 +158,7 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget>
     if (piece == '') return;
 
     final isWhite = piece == piece.toUpperCase();
-    final playerPieces = isWhite ? 'PKQRBN' : 'pkqrbn';
-    if (!playerPieces.contains(piece)) return;
+    if ((isWhite ? 'w' : 'b') != _activeColor) return;
 
     _pointerDownPos = pos;
     _isDragging = false;
@@ -209,8 +210,7 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget>
       final piece = _getPieceAt(square);
       if (piece != '') {
         final isWhite = piece == piece.toUpperCase();
-        final playerPieces = isWhite ? 'PKQRBN' : 'pkqrbn';
-        if (!playerPieces.contains(piece)) return;
+        if ((isWhite ? 'w' : 'b') != _activeColor) return;
         setState(() {
           _selectedSquare = square;
           _legalMoves = _getLegalMovesForSquare(square);
