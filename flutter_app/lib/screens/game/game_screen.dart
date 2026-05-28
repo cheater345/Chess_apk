@@ -186,22 +186,18 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
                 isFlipped: widget.playerColor != null ? widget.playerColor == 'black' : game.currentGame?.getPlayerColor(userId) == 'black',
                 playerColor: widget.playerColor,
                 interactive: game.currentGame?.isActive ?? false,
-                onMove: (from, to) {
+                onMove: (from, to, {String? promotion}) {
                   final socket = context.read<SocketProvider>();
-                  socket.emit('game:move', {
+                  final data = <String, dynamic>{
                     'gameId': widget.gameId,
                     'uid': userId,
                     'from': from,
                     'to': to,
                     'moveTime': 0,
-                  });
+                  };
+                  if (promotion != null) data['promotion'] = promotion;
+                  socket.emit('game:move', data);
                 },
-                lastMoveFrom: game.currentGame?.moves.isNotEmpty == true
-                    ? game.currentGame!.moves.last.from
-                    : null,
-                lastMoveTo: game.currentGame?.moves.isNotEmpty == true
-                    ? game.currentGame!.moves.last.to
-                    : null,
               ),
             ),
           ),
