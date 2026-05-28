@@ -64,10 +64,4 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/sounds/
-    - assets/fonts/
-
-  fonts:
-    - family: ChessSans
-      fonts:
-        - asset: assets/fonts/ChessSans.ttf
+    - assets/images/pieces/

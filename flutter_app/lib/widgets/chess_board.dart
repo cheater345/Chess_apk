@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../config/theme.dart';
 
 class ChessBoardWidget extends StatefulWidget {
@@ -40,10 +41,7 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget>
   late AnimationController _pulseController;
   Set<String> _lastMoveSquares = {};
 
-  final Map<String, String> _unicodePieces = {
-    'K': '♔', 'Q': '♕', 'R': '♖', 'B': '♗', 'N': '♘', 'P': '♙',
-    'k': '♚', 'q': '♛', 'r': '♜', 'b': '♝', 'n': '♞', 'p': '♟',
-  };
+  final Set<String> _whitePieces = {'K', 'Q', 'R', 'B', 'N', 'P'};
 
   @override
   void initState() {
@@ -275,8 +273,11 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget>
                           )
                         : Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(sqSize * 0.15),
-                              color: AppTheme.errorRed.withOpacity(0.35),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: AppTheme.errorRed.withOpacity(0.7),
+                                width: 2.5,
+                              ),
                             ),
                           ),
                   if (piece != '')
@@ -325,25 +326,16 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget>
   }
 
   Widget _buildPiece(String piece, double size, bool isDragging) {
+    final isWhite = _whitePieces.contains(piece);
+    final fn = 'assets/images/pieces/${isWhite ? 'w' : 'b'}${piece.toUpperCase()}.svg';
     return AnimatedScale(
-      scale: 1.0,
+      scale: isDragging ? 1.15 : 1.0,
       duration: const Duration(milliseconds: 150),
-      child: Transform.scale(
-        scale: isDragging ? 1.15 : 1.0,
-        child: Text(
-          _unicodePieces[piece] ?? '',
-          style: TextStyle(
-            fontSize: size * 0.78,
-            color: piece == piece.toUpperCase() ? Colors.white : Colors.black87,
-            shadows: [
-              Shadow(
-                color: Colors.black.withOpacity(isDragging ? 0.5 : 0.35),
-                blurRadius: isDragging ? 8 : 3,
-                offset: const Offset(2, 2),
-              ),
-            ],
-          ),
-        ),
+      child: SvgPicture.asset(
+        fn,
+        width: size * 0.88,
+        height: size * 0.88,
+        fit: BoxFit.contain,
       ),
     );
   }

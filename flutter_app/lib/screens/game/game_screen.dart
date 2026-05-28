@@ -52,6 +52,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
 
     socket.on('game:over', (data) {
       game.endGame(data);
+      _showGameOverDialog(data);
     });
 
     socket.on('game:state', (data) {
@@ -92,6 +93,64 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
             socket.emit('game:draw:response', {'gameId': widget.gameId, 'accepted': true});
             Navigator.pop(context);
           }, child: const Text('Accept')),
+        ],
+      ),
+    );
+  }
+
+  void _showGameOverDialog(Map<String, dynamic> data) {
+    final userId = context.read<AuthProvider>().user?.uid ?? '';
+    final game = context.read<GameProvider>().currentGame;
+    if (game == null) return;
+
+    final winner = data['winner'];
+    final reason = data['reason'] ?? '';
+    final isWin = winner == game.getPlayerColor(userId);
+
+    String title, message;
+    if (reason == 'resignation') {
+      title = isWin ? 'Opponent Resigned' : 'You Resigned';
+      message = isWin ? 'You won by resignation' : 'Game ended by resignation';
+    } else if (reason == 'checkmate') {
+      title = isWin ? 'Checkmate! You Won!' : 'Checkmate';
+      message = isWin ? 'Congratulations!' : 'You lost by checkmate';
+    } else if (reason == 'stalemate') {
+      title = 'Stalemate';
+      message = 'The game is a draw';
+    } else if (reason == 'agreement') {
+      title = 'Draw';
+      message = 'Draw by agreement';
+    } else if (reason == 'timeout') {
+      title = isWin ? 'You Won on Time' : 'You Lost on Time';
+      message = isWin ? 'Opponent ran out of time' : 'You ran out of time';
+    } else {
+      title = isWin ? 'You Won!' : 'Game Over';
+      message = 'Winner: $winner';
+    }
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => AlertDialog(
+        backgroundColor: AppTheme.cardDark,
+        title: Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        content: Text(message, style: const TextStyle(color: AppTheme.textSecondary, fontSize: 16)),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            child: const Text('Leave', style: TextStyle(color: AppTheme.textSecondary)),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              final socket = context.read<SocketProvider>();
+              socket.emit('game:rematch', {'gameId': widget.gameId, 'uid': userId});
+            },
+            child: const Text('Rematch'),
+          ),
         ],
       ),
     );
