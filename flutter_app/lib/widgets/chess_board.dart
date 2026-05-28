@@ -24,6 +24,7 @@ class ChessBoardWidget extends StatefulWidget {
 
 class _ChessBoardWidgetState extends State<ChessBoardWidget> {
   String? _selectedSquare;
+  List<String> _legalMoves = [];
   bool _isDragging = false;
   String? _dragFrom;
   Offset? _dragPosition;
@@ -126,6 +127,7 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
     _dragFrom = square;
     _dragPosition = pos;
     _selectedSquare = square;
+    _legalMoves = _getLegalMovesForSquare(square);
     setState(() {});
   }
 
@@ -138,12 +140,12 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
   }
 
   void _onPanEnd(DragEndDetails details, double sqSize) {
-    if (_dragFrom == null) { setState(() { _selectedSquare = null; }); return; }
+    if (_dragFrom == null) { setState(() { _selectedSquare = null; _legalMoves = []; }); return; }
     final pos = _dragPosition ?? details.localPosition;
     final (f, r) = _tapToBoardCoords(pos, sqSize);
     final target = _coordsToSquare(f, r);
-    if (target != _dragFrom) _doMove(_dragFrom!, target);
-    setState(() { _isDragging = false; _dragFrom = null; _dragPosition = null; _pointerDownPos = null; _selectedSquare = null; });
+    if (target != _dragFrom && _legalMoves.contains(target)) _doMove(_dragFrom!, target);
+    setState(() { _isDragging = false; _dragFrom = null; _dragPosition = null; _pointerDownPos = null; _selectedSquare = null; _legalMoves = []; });
   }
 
   void _handleTap(TapUpDetails details, double sqSize) {
@@ -156,10 +158,12 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
       final piece = _getPieceAt(square);
       if (piece == '' || !_allowedToSelect(piece)) return;
       _selectedSquare = square;
+      _legalMoves = _getLegalMovesForSquare(square);
       setState(() {});
     } else {
-      if (square != _selectedSquare) _doMove(_selectedSquare!, square);
+      if (square != _selectedSquare && _legalMoves.contains(square)) _doMove(_selectedSquare!, square);
       _selectedSquare = null;
+      _legalMoves = [];
       setState(() {});
     }
   }
@@ -224,7 +228,20 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
                   ? _selectedColor
                   : isLight ? _lightSquare : _darkSquare,
             ),
-            child: piece != '' ? Center(child: _buildPiece(piece, sqSize)) : null,
+            child: piece != ''
+                ? Center(child: _buildPiece(piece, sqSize))
+                : _legalMoves.contains(sq)
+                    ? Center(
+                        child: Container(
+                          width: sqSize * 0.3,
+                          height: sqSize * 0.3,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0x8082962C),
+                          ),
+                        ),
+                      )
+                    : null,
           ),
         ));
       }
@@ -244,6 +261,65 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
     final file = square.codeUnitAt(0) - 97;
     final rank = int.parse(square[1]) - 1;
     return board[7 - rank][file];
+  }
+
+  List<String> _getLegalMovesForSquare(String square) {
+    final piece = _getPieceAt(square);
+    if (piece == '') return [];
+    final file = square.codeUnitAt(0) - 97;
+    final rank = int.parse(square[1]) - 1;
+    final p = piece.toLowerCase();
+    final isWhite = piece == piece.toUpperCase();
+    final moves = <String>[];
+
+    void addIf(int f, int r) {
+      if (f < 0 || f > 7 || r < 0 || r > 7) return;
+      final t = _getPieceAt('${String.fromCharCode(97 + f)}${r + 1}');
+      if (t == '' || (t == t.toUpperCase()) != isWhite) {
+        moves.add('${String.fromCharCode(97 + f)}${r + 1}');
+      }
+    }
+
+    switch (p) {
+      case 'p':
+        final dir = isWhite ? 1 : -1;
+        final start = isWhite ? 1 : 6;
+        if (rank + dir >= 0 && rank + dir < 8) {
+          if (_getPieceAt('${String.fromCharCode(97 + file)}${rank + dir + 1}') == '') {
+            moves.add('${String.fromCharCode(97 + file)}${rank + dir + 1}');
+            if (rank == start) {
+              if (_getPieceAt('${String.fromCharCode(97 + file)}${rank + 2 * dir + 1}') == '') {
+                moves.add('${String.fromCharCode(97 + file)}${rank + 2 * dir + 1}');
+              }
+            }
+          }
+          if (file > 0) {
+            final cap = _getPieceAt('${String.fromCharCode(97 + file - 1)}${rank + dir + 1}');
+            if (cap != '' && (cap == cap.toUpperCase()) != isWhite) moves.add('${String.fromCharCode(97 + file - 1)}${rank + dir + 1}');
+          }
+          if (file < 7) {
+            final cap = _getPieceAt('${String.fromCharCode(97 + file + 1)}${rank + dir + 1}');
+            if (cap != '' && (cap == cap.toUpperCase()) != isWhite) moves.add('${String.fromCharCode(97 + file + 1)}${rank + dir + 1}');
+          }
+        }
+        break;
+      case 'n':
+        for (final o in [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]]) addIf(file+o[1], rank+o[0]);
+        break;
+      case 'b':
+        for (final d in [[-1,-1],[-1,1],[1,-1],[1,1]]) { for (int i=1;i<8;i++) { final f=file+d[1]*i, r=rank+d[0]*i; if (f<0||f>7||r<0||r>7) break; final t=_getPieceAt('${String.fromCharCode(97+f)}${r+1}'); if(t==''){moves.add('${String.fromCharCode(97+f)}${r+1}');}else{if((t==t.toUpperCase())!=isWhite)moves.add('${String.fromCharCode(97+f)}${r+1}');break;} }}
+        break;
+      case 'r':
+        for (final d in [[-1,0],[1,0],[0,-1],[0,1]]) { for (int i=1;i<8;i++) { final f=file+d[1]*i, r=rank+d[0]*i; if (f<0||f>7||r<0||r>7) break; final t=_getPieceAt('${String.fromCharCode(97+f)}${r+1}'); if(t==''){moves.add('${String.fromCharCode(97+f)}${r+1}');}else{if((t==t.toUpperCase())!=isWhite)moves.add('${String.fromCharCode(97+f)}${r+1}');break;} }}
+        break;
+      case 'q':
+        for (final d in [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]]) { for (int i=1;i<8;i++) { final f=file+d[1]*i, r=rank+d[0]*i; if (f<0||f>7||r<0||r>7) break; final t=_getPieceAt('${String.fromCharCode(97+f)}${r+1}'); if(t==''){moves.add('${String.fromCharCode(97+f)}${r+1}');}else{if((t==t.toUpperCase())!=isWhite)moves.add('${String.fromCharCode(97+f)}${r+1}');break;} }}
+        break;
+      case 'k':
+        for (final d in [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]]) addIf(file+d[1], rank+d[0]);
+        break;
+    }
+    return moves;
   }
 
   List<List<String>> _fenToBoard() {
