@@ -11,7 +11,7 @@ function initFirebase() {
       clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
     };
 
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' && !process.env.FIREBASE_PRIVATE_KEY) {
       admin.initializeApp({
         projectId: process.env.FIREBASE_PROJECT_ID,
       });
@@ -20,7 +20,7 @@ function initFirebase() {
       admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
       });
-      console.log('Firebase initialized in production mode');
+      console.log('Firebase initialized with service account');
     }
   }
 
