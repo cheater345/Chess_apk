@@ -1,0 +1,255 @@
+Firebase initialized with service account
+OpenChess Arena server running on port 3000
+WebSocket server ready for connections
+[0mGET /api/auth/me [33m401[0m 17.243 ms - 29[0m
+User connected: TyAMtN_s7iW_pm5OAAAB
+User disconnected: TyAMtN_s7iW_pm5OAAAB
+User connected: 5zzqnOwsOFXQjCOFAAAD
+User disconnected: 5zzqnOwsOFXQjCOFAAAD
+[0mPOST /api/auth/guest [32m201[0m 8911.946 ms - 1759[0m
+[0mGET /api/puzzles/daily [32m200[0m 2.699 ms - 149[0m
+User connected: JKHymeiKlzEtjLl0AAAF
+[AI] computing move for f2360aa0-e7fd-4d0f-996f-2c8624766e50 fen=rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 color=b level=3
+[AI] best move: {"color":"b","from":"a7","to":"a5","piece":"p","flags":"b","san":"a5","lan":"a7a5","before":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1","after":"rnbqkbnr/1ppppppp/8/p7/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2","score":47855}
+[AI] computing move for f2360aa0-e7fd-4d0f-996f-2c8624766e50 fen=rnbqkbnr/1ppppppp/8/p7/3PP3/8/PPP2PPP/RNBQKBNR b KQkq - 0 2 color=b level=3
+[AI] best move: {"color":"b","from":"b7","to":"b5","piece":"p","flags":"b","san":"b5","lan":"b7b5","before":"rnbqkbnr/1ppppppp/8/p7/3PP3/8/PPP2PPP/RNBQKBNR b KQkq - 0 2","after":"rnbqkbnr/2pppppp/8/pp6/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 0 3","score":47860}
+[AI] computing move for f2360aa0-e7fd-4d0f-996f-2c8624766e50 fen=rnbqkbnr/2pppppp/8/pp1P4/4P3/8/PPP2PPP/RNBQKBNR b KQkq - 0 3 color=b level=3
+[AI] best move: {"color":"b","from":"g7","to":"g5","piece":"p","flags":"b","san":"g5","lan":"g7g5","before":"rnbqkbnr/2pppppp/8/pp1P4/4P3/8/PPP2PPP/RNBQKBNR b KQkq - 0 3","after":"rnbqkbnr/2pppp1p/8/pp1P2p1/4P3/8/PPP2PPP/RNBQKBNR w KQkq - 0 4","score":47900}
+[AI] computing move for f2360aa0-e7fd-4d0f-996f-2c8624766e50 fen=rnbqkbnr/2pppp1p/8/pp1PP1p1/8/8/PPP2PPP/RNBQKBNR b KQkq - 0 4 color=b level=3
+[AI] best move: {"color":"b","from":"c8","to":"a6","piece":"b","flags":"n","san":"Ba6","lan":"c8a6","before":"rnbqkbnr/2pppp1p/8/pp1PP1p1/8/8/PPP2PPP/RNBQKBNR b KQkq - 0 4","after":"rn1qkbnr/2pppp1p/b7/pp1PP1p1/8/8/PPP2PPP/RNBQKBNR w KQkq - 1 5","score":47895}
+[AI] computing move for f2360aa0-e7fd-4d0f-996f-2c8624766e50 fen=rn1qkbnr/2pppp1p/b3P3/pp1P2p1/8/8/PPP2PPP/RNBQKBNR b KQkq - 0 5 color=b level=3
+[AI] best move: {"color":"b","from":"a5","to":"a4","piece":"p","flags":"n","san":"a4","lan":"a5a4","before":"rn1qkbnr/2pppp1p/b3P3/pp1P2p1/8/8/PPP2PPP/RNBQKBNR b KQkq - 0 5","after":"rn1qkbnr/2pppp1p/b3P3/1p1P2p1/p7/8/PPP2PPP/RNBQKBNR w KQkq - 0 6","score":47895}
+[AI] computing move for f2360aa0-e7fd-4d0f-996f-2c8624766e50 fen=rn1qkbnr/2pppp1p/b2PP3/1p4p1/p7/8/PPP2PPP/RNBQKBNR b KQkq - 0 6 color=b level=3
+[AI] best move: {"color":"b","from":"f7","to":"f5","piece":"p","flags":"b","san":"f5","lan":"f7f5","before":"rn1qkbnr/2pppp1p/b2PP3/1p4p1/p7/8/PPP2PPP/RNBQKBNR b KQkq - 0 6","after":"rn1qkbnr/2ppp2p/b2PP3/1p3pp1/p7/8/PPP2PPP/RNBQKBNR w KQkq - 0 7","score":47930}
+[AI] computing move for 728b7ade-c943-444b-b300-1b46d847847b fen=rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 color=b level=5
+[AI] best move: {"color":"b","from":"a7","to":"a5","piece":"p","flags":"b","san":"a5","lan":"a7a5","before":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1","after":"rnbqkbnr/1ppppppp/8/p7/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2","score":47855}
+[AI] computing move for 728b7ade-c943-444b-b300-1b46d847847b fen=rnbqkbnr/1ppppppp/8/p7/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2 color=b level=5
+[AI] best move: {"color":"b","from":"b7","to":"b5","piece":"p","flags":"b","san":"b5","lan":"b7b5","before":"rnbqkbnr/1ppppppp/8/p7/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2","after":"rnbqkbnr/2pppppp/8/pp6/2B1P3/8/PPPP1PPP/RNBQK1NR w KQkq - 0 3","score":47880}
+[AI] computing move for 728b7ade-c943-444b-b300-1b46d847847b fen=rnbqkbnr/2pppppp/8/pp1B4/4P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 3 color=b level=5
+[AI] best move: {"color":"b","from":"g7","to":"g5","piece":"p","flags":"b","san":"g5","lan":"g7g5","before":"rnbqkbnr/2pppppp/8/pp1B4/4P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 3","after":"rnbqkbnr/2pppp1p/8/pp1B2p1/4P3/8/PPPP1PPP/RNBQK1NR w KQkq - 0 4","score":47925}
+[AI] computing move for 728b7ade-c943-444b-b300-1b46d847847b fen=rnbqkbnr/2pppp1p/8/pp1B2p1/4P3/5Q2/PPPP1PPP/RNB1K1NR b KQkq - 1 4 color=b level=5
+[AI] best move: {"color":"b","from":"h7","to":"h5","piece":"p","flags":"b","san":"h5","lan":"h7h5","before":"rnbqkbnr/2pppp1p/8/pp1B2p1/4P3/5Q2/PPPP1PPP/RNB1K1NR b KQkq - 1 4","after":"rnbqkbnr/2pppp2/8/pp1B2pp/4P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 5","score":47960}
+[AI] computing move for 096502ea-e6d4-434b-9175-a1d195f471de fen=rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 color=b level=5
+[AI] best move: {"color":"b","from":"a7","to":"a5","piece":"p","flags":"b","san":"a5","lan":"a7a5","before":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1","after":"rnbqkbnr/1ppppppp/8/p7/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2","score":47855}
+[AI] computing move for 096502ea-e6d4-434b-9175-a1d195f471de fen=rnbqkbnr/1ppppppp/8/p7/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2 color=b level=5
+[AI] best move: {"color":"b","from":"b7","to":"b5","piece":"p","flags":"b","san":"b5","lan":"b7b5","before":"rnbqkbnr/1ppppppp/8/p7/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2","after":"rnbqkbnr/2pppppp/8/pp6/2B1P3/8/PPPP1PPP/RNBQK1NR w KQkq - 0 3","score":47880}
+[AI] computing move for 096502ea-e6d4-434b-9175-a1d195f471de fen=rnbqkbnr/2pppppp/8/pp6/4P3/1B6/PPPP1PPP/RNBQK1NR b KQkq - 1 3 color=b level=5
+[AI] best move: {"color":"b","from":"g7","to":"g5","piece":"p","flags":"b","san":"g5","lan":"g7g5","before":"rnbqkbnr/2pppppp/8/pp6/4P3/1B6/PPPP1PPP/RNBQK1NR b KQkq - 1 3","after":"rnbqkbnr/2pppp1p/8/pp4p1/4P3/1B6/PPPP1PPP/RNBQK1NR w KQkq - 0 4","score":47925}
+[AI] computing move for 096502ea-e6d4-434b-9175-a1d195f471de fen=rnbqkbnr/2pppp1p/8/pp4p1/4P3/1B3Q2/PPPP1PPP/RNB1K1NR b KQkq - 1 4 color=b level=5
+[AI] best move: {"color":"b","from":"h7","to":"h5","piece":"p","flags":"b","san":"h5","lan":"h7h5","before":"rnbqkbnr/2pppp1p/8/pp4p1/4P3/1B3Q2/PPPP1PPP/RNB1K1NR b KQkq - 1 4","after":"rnbqkbnr/2pppp2/8/pp4pp/4P3/1B3Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 5","score":47960}
+User disconnected: JKHymeiKlzEtjLl0AAAF
+[0mPOST /api/auth/guest [32m201[0m 2864.002 ms - 1759[0m
+[0mGET /api/puzzles/daily [32m200[0m 4.141 ms - 149[0m
+User connected: DDQj_n5qOBHBkDSoAAAH
+User disconnected: DDQj_n5qOBHBkDSoAAAH
+[0mGET /api/auth/me [33m401[0m 35.851 ms - 202[0m
+[0mPOST /api/auth/guest [32m201[0m 1420.927 ms - 1759[0m
+[0mGET /api/puzzles/daily [32m200[0m 1.298 ms - 149[0m
+User connected: 5NfIkETsoZGyP4mNAAAJ
+[AI] computing move for 577b5d4a-56aa-4ef4-88b7-317f6124a7fc fen=rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 color=b level=3
+[AI] best move: {"color":"b","from":"g8","to":"h6","piece":"n","flags":"n","san":"Nh6","lan":"g8h6","before":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1","after":"rnbqkb1r/pppppppp/7n/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 1 2","score":47800}
+User disconnected: 5NfIkETsoZGyP4mNAAAJ
+[0mPOST /api/auth/guest [32m201[0m 2552.834 ms - 1759[0m
+[0mGET /api/puzzles/daily [32m200[0m 2.563 ms - 149[0m
+User connected: oveKjXitS9EMqpoWAAAL
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbqkbnr/pppppppp/8/8/8/4P3/PPPP1PPP/RNBQKBNR b KQkq - 0 1 color=b level=3
+[AI] best move: {"color":"b","from":"a7","to":"a5","piece":"p","flags":"b","san":"a5","lan":"a7a5","before":"rnbqkbnr/pppppppp/8/8/8/4P3/PPPP1PPP/RNBQKBNR b KQkq - 0 1","after":"rnbqkbnr/1ppppppp/8/p7/8/4P3/PPPP1PPP/RNBQKBNR w KQkq - 0 2","score":47875}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbqkbnr/1ppppppp/8/p7/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2 color=b level=3
+[AI] best move: {"color":"b","from":"b7","to":"b5","piece":"p","flags":"b","san":"b5","lan":"b7b5","before":"rnbqkbnr/1ppppppp/8/p7/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2","after":"rnbqkbnr/2pppppp/8/pp6/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 3","score":47900}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbqkbnr/2pppppp/8/pp2P3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 3 color=b level=3
+[AI] best move: {"color":"b","from":"g7","to":"g5","piece":"p","flags":"b","san":"g5","lan":"g7g5","before":"rnbqkbnr/2pppppp/8/pp2P3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 3","after":"rnbqkbnr/2pppp1p/8/pp2P1p1/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 4","score":47940}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbqkbnr/2pppp1p/4P3/pp4p1/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 4 color=b level=3
+[AI] best move: {"color":"b","from":"h7","to":"h5","piece":"p","flags":"b","san":"h5","lan":"h7h5","before":"rnbqkbnr/2pppp1p/4P3/pp4p1/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 4","after":"rnbqkbnr/2pppp2/4P3/pp4pp/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 5","score":47980}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbqkbnr/2pppP2/8/pp4pp/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 5 color=b level=3
+[AI] best move: {"color":"b","from":"e8","to":"f7","piece":"k","captured":"p","flags":"c","san":"Kxf7","lan":"e8f7","before":"rnbqkbnr/2pppP2/8/pp4pp/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 5","after":"rnbq1bnr/2pppk2/8/pp4pp/8/8/PPPP1PPP/RNBQKBNR w KQ - 0 6","score":47850}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbq1bnr/2pppk2/8/pB4pp/8/8/PPPP1PPP/RNBQK1NR b KQ - 0 6 color=b level=3
+[AI] best move: {"color":"b","from":"c7","to":"c5","piece":"p","flags":"b","san":"c5","lan":"c7c5","before":"rnbq1bnr/2pppk2/8/pB4pp/8/8/PPPP1PPP/RNBQK1NR b KQ - 0 6","after":"rnbq1bnr/3ppk2/8/pBp3pp/8/8/PPPP1PPP/RNBQK1NR w KQ - 0 7","score":47780}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbq1bnr/3ppk2/8/p1p3pp/2B5/8/PPPP1PPP/RNBQK1NR b KQ - 1 7 color=b level=3
+[AI] best move: {"color":"b","from":"d7","to":"d5","piece":"p","flags":"b","san":"d5","lan":"d7d5","before":"rnbq1bnr/3ppk2/8/p1p3pp/2B5/8/PPPP1PPP/RNBQK1NR b KQ - 1 7","after":"rnbq1bnr/4pk2/8/p1pp2pp/2B5/8/PPPP1PPP/RNBQK1NR w KQ - 0 8","score":47800}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbq1bnr/4pk2/8/p1pB2pp/8/8/PPPP1PPP/RNBQK1NR b KQ - 0 8 color=b level=3
+[AI] best move: {"color":"b","from":"e7","to":"e6","piece":"p","flags":"n","san":"e6","lan":"e7e6","before":"rnbq1bnr/4pk2/8/p1pB2pp/8/8/PPPP1PPP/RNBQK1NR b KQ - 0 8","after":"rnbq1bnr/5k2/4p3/p1pB2pp/8/8/PPPP1PPP/RNBQK1NR w KQ - 0 9","score":47745}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbq1bnr/5k2/4p3/p1pB2pp/8/5Q2/PPPP1PPP/RNB1K1NR b KQ - 1 9 color=b level=3
+[AI] best move: {"color":"b","from":"f7","to":"e8","piece":"k","flags":"n","san":"Ke8","lan":"f7e8","before":"rnbq1bnr/5k2/4p3/p1pB2pp/8/5Q2/PPPP1PPP/RNB1K1NR b KQ - 1 9","after":"rnbqkbnr/8/4p3/p1pB2pp/8/5Q2/PPPP1PPP/RNB1K1NR w KQ - 2 10","score":47745}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbqkbnr/8/4p3/p1p3pp/8/1B3Q2/PPPP1PPP/RNB1K1NR b KQ - 3 10 color=b level=3
+[AI] best move: {"color":"b","from":"c5","to":"c4","piece":"p","flags":"n","san":"c4","lan":"c5c4","before":"rnbqkbnr/8/4p3/p1p3pp/8/1B3Q2/PPPP1PPP/RNB1K1NR b KQ - 3 10","after":"rnbqkbnr/8/4p3/p5pp/2p5/1B3Q2/PPPP1PPP/RNB1K1NR w KQ - 0 11","score":47755}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbqkbnr/8/4p3/p5pp/B1p5/5Q2/PPPP1PPP/RNB1K1NR b KQ - 1 11 color=b level=3
+[AI] best move: {"color":"b","from":"e8","to":"e7","piece":"k","flags":"n","san":"Ke7","lan":"e8e7","before":"rnbqkbnr/8/4p3/p5pp/B1p5/5Q2/PPPP1PPP/RNB1K1NR b KQ - 1 11","after":"rnbq1bnr/4k3/4p3/p5pp/B1p5/5Q2/PPPP1PPP/RNB1K1NR w KQ - 2 12","score":47775}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbq1bnr/4k3/4p3/p5pp/B1p5/5Q1N/PPPP1PPP/RNB1K2R b KQ - 3 12 color=b level=3
+[AI] best move: {"color":"b","from":"c4","to":"c3","piece":"p","flags":"n","san":"c3","lan":"c4c3","before":"rnbq1bnr/4k3/4p3/p5pp/B1p5/5Q1N/PPPP1PPP/RNB1K2R b KQ - 3 12","after":"rnbq1bnr/4k3/4p3/p5pp/B7/2p2Q1N/PPPP1PPP/RNB1K2R w KQ - 0 13","score":47775}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbq1bnr/4k3/4p3/p5Np/B7/2p2Q2/PPPP1PPP/RNB1K2R b KQ - 0 13 color=b level=3
+[AI] best move: {"color":"b","from":"d8","to":"b6","piece":"q","flags":"n","san":"Qb6","lan":"d8b6","before":"rnbq1bnr/4k3/4p3/p5Np/B7/2p2Q2/PPPP1PPP/RNB1K2R b KQ - 0 13","after":"rnb2bnr/4k3/1q2p3/p5Np/B7/2p2Q2/PPPP1PPP/RNB1K2R w KQ - 1 14","score":47640}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnb2bnr/4k3/1q2p3/p5Np/B7/2P2Q2/PPP2PPP/RNB1K2R b KQ - 0 14 color=b level=3
+[AI] best move: {"color":"b","from":"b6","to":"a7","piece":"q","flags":"n","san":"Qa7","lan":"b6a7","before":"rnb2bnr/4k3/1q2p3/p5Np/B7/2P2Q2/PPP2PPP/RNB1K2R b KQ - 0 14","after":"rnb2bnr/q3k3/4p3/p5Np/B7/2P2Q2/PPP2PPP/RNB1K2R w KQ - 1 15","score":47530}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnb2bnr/q3k3/4p3/p5Np/B7/2P2Q2/PPP2PPP/RNB2K1R b - - 2 15 color=b level=3
+[AI] best move: {"color":"b","from":"h8","to":"h6","piece":"r","flags":"n","san":"Rh6","lan":"h8h6","before":"rnb2bnr/q3k3/4p3/p5Np/B7/2P2Q2/PPP2PPP/RNB2K1R b - - 2 15","after":"rnb2bn1/q3k3/4p2r/p5Np/B7/2P2Q2/PPP2PPP/RNB2K1R w - - 3 16","score":47525}
+User disconnected: oveKjXitS9EMqpoWAAAL
+[0mPOST /api/auth/guest [32m201[0m 1765.068 ms - 1759[0m
+[0mGET /api/puzzles/daily [32m200[0m 1.521 ms - 149[0m
+User connected: eha57GvI_88E08HvAAAN
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 color=b level=3
+[AI] best move: {"color":"b","from":"a7","to":"a5","piece":"p","flags":"b","san":"a5","lan":"a7a5","before":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1","after":"rnbqkbnr/1ppppppp/8/p7/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2","score":47855}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbqkbnr/1ppppppp/8/p3P3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2 color=b level=3
+[AI] best move: {"color":"b","from":"b7","to":"b5","piece":"p","flags":"b","san":"b5","lan":"b7b5","before":"rnbqkbnr/1ppppppp/8/p3P3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2","after":"rnbqkbnr/2pppppp/8/pp2P3/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 3","score":47895}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbqkbnr/2pppppp/4P3/pp6/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 3 color=b level=3
+[AI] best move: {"color":"b","from":"g7","to":"g5","piece":"p","flags":"b","san":"g5","lan":"g7g5","before":"rnbqkbnr/2pppppp/4P3/pp6/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 3","after":"rnbqkbnr/2pppp1p/4P3/pp4p1/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 4","score":47935}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbqkbnr/2pPpp1p/8/pp4p1/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 4 color=b level=3
+[AI] best move: {"color":"b","from":"e8","to":"d7","piece":"k","captured":"p","flags":"c","san":"Kxd7","lan":"e8d7","before":"rnbqkbnr/2pPpp1p/8/pp4p1/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 4","after":"rnbq1bnr/2pkpp1p/8/pp4p1/8/8/PPPP1PPP/RNBQKBNR w KQ - 0 5","score":47815}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1bnr/2pkpp1p/8/pp4p1/P7/8/1PPP1PPP/RNBQKBNR b KQ - 0 5 color=b level=3
+[AI] best move: {"color":"b","from":"h7","to":"h5","piece":"p","flags":"b","san":"h5","lan":"h7h5","before":"rnbq1bnr/2pkpp1p/8/pp4p1/P7/8/1PPP1PPP/RNBQKBNR b KQ - 0 5","after":"rnbq1bnr/2pkpp2/8/pp4pp/P7/8/1PPP1PPP/RNBQKBNR w KQ - 0 6","score":47865}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1bnr/2pkpp2/8/pP4pp/8/8/1PPP1PPP/RNBQKBNR b KQ - 0 6 color=b level=3
+[AI] best move: {"color":"b","from":"c7","to":"c5","piece":"p","flags":"b","san":"c5","lan":"c7c5","before":"rnbq1bnr/2pkpp2/8/pP4pp/8/8/1PPP1PPP/RNBQKBNR b KQ - 0 6","after":"rnbq1bnr/3kpp2/8/pPp3pp/8/8/1PPP1PPP/RNBQKBNR w KQ c6 0 7","score":47805}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1bnr/3kpp2/1P6/p1p3pp/8/8/1PPP1PPP/RNBQKBNR b KQ - 0 7 color=b level=3
+[AI] best move: {"color":"b","from":"f7","to":"f5","piece":"p","flags":"b","san":"f5","lan":"f7f5","before":"rnbq1bnr/3kpp2/1P6/p1p3pp/8/8/1PPP1PPP/RNBQKBNR b KQ - 0 7","after":"rnbq1bnr/3kp3/1P6/p1p2ppp/8/8/1PPP1PPP/RNBQKBNR w KQ - 0 8","score":47840}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1bnr/3kp3/1P6/p1p2ppp/8/8/1PPPQPPP/RNB1KBNR b KQ - 1 8 color=b level=3
+[AI] best move: {"color":"b","from":"e7","to":"e5","piece":"p","flags":"b","san":"e5","lan":"e7e5","before":"rnbq1bnr/3kp3/1P6/p1p2ppp/8/8/1PPPQPPP/RNB1KBNR b KQ - 1 8","after":"rnbq1bnr/3k4/1P6/p1p1pppp/8/8/1PPPQPPP/RNB1KBNR w KQ - 0 9","score":47860}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1bnr/3k4/1P6/p1p1pppp/8/4Q3/1PPP1PPP/RNB1KBNR b KQ - 1 9 color=b level=3
+[AI] best move: {"color":"b","from":"g8","to":"f6","piece":"n","flags":"n","san":"Nf6","lan":"g8f6","before":"rnbq1bnr/3k4/1P6/p1p1pppp/8/4Q3/1PPP1PPP/RNB1KBNR b KQ - 1 9","after":"rnbq1b1r/3k4/1P3n2/p1p1pppp/8/4Q3/1PPP1PPP/RNB1KBNR w KQ - 2 10","score":47805}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1b1r/3k4/1P3n2/pBp1pppp/8/4Q3/1PPP1PPP/RNB1K1NR b KQ - 3 10 color=b level=3
+[AI] best move: {"color":"b","from":"d7","to":"e7","piece":"k","flags":"n","san":"Ke7","lan":"d7e7","before":"rnbq1b1r/3k4/1P3n2/pBp1pppp/8/4Q3/1PPP1PPP/RNB1K1NR b KQ - 3 10","after":"rnbq1b1r/4k3/1P3n2/pBp1pppp/8/4Q3/1PPP1PPP/RNB1K1NR w KQ - 4 11","score":47790}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1b1r/4k3/1P3n2/pBp1Qppp/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 11 color=b level=3
+[AI] best move: {"color":"b","from":"e7","to":"f7","piece":"k","flags":"n","san":"Kf7","lan":"e7f7","before":"rnbq1b1r/4k3/1P3n2/pBp1Qppp/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 11","after":"rnbq1b1r/5k2/1P3n2/pBp1Qppp/8/8/1PPP1PPP/RNB1K1NR w KQ - 1 12","score":47705}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1b1r/5k2/1P3n2/pBp2Qpp/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 12 color=b level=3
+[AI] best move: {"color":"b","from":"f7","to":"e7","piece":"k","flags":"n","san":"Ke7","lan":"f7e7","before":"rnbq1b1r/5k2/1P3n2/pBp2Qpp/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 12","after":"rnbq1b1r/4k3/1P3n2/pBp2Qpp/8/8/1PPP1PPP/RNB1K1NR w KQ - 1 13","score":47625}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1b1r/4k3/1P3n2/pBp1Q1pp/8/8/1PPP1PPP/RNB1K1NR b KQ - 2 13 color=b level=3
+[AI] best move: {"color":"b","from":"c8","to":"e6","piece":"b","flags":"n","san":"Be6","lan":"c8e6","before":"rnbq1b1r/4k3/1P3n2/pBp1Q1pp/8/8/1PPP1PPP/RNB1K1NR b KQ - 2 13","after":"rn1q1b1r/4k3/1P2bn2/pBp1Q1pp/8/8/1PPP1PPP/RNB1K1NR w KQ - 3 14","score":47605}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rn1q1b1r/4k3/1P2bn2/pBp3Qp/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 14 color=b level=3
+[AI] best move: {"color":"b","from":"e6","to":"c8","piece":"b","flags":"n","san":"Bc8","lan":"e6c8","before":"rn1q1b1r/4k3/1P2bn2/pBp3Qp/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 14","after":"rnbq1b1r/4k3/1P3n2/pBp3Qp/8/8/1PPP1PPP/RNB1K1NR w KQ - 1 15","score":47535}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1b1r/4k3/1P3n2/pBp1Q2p/8/8/1PPP1PPP/RNB1K1NR b KQ - 2 15 color=b level=3
+[AI] best move: {"color":"b","from":"e7","to":"f7","piece":"k","flags":"n","san":"Kf7","lan":"e7f7","before":"rnbq1b1r/4k3/1P3n2/pBp1Q2p/8/8/1PPP1PPP/RNB1K1NR b KQ - 2 15","after":"rnbq1b1r/5k2/1P3n2/pBp1Q2p/8/8/1PPP1PPP/RNB1K1NR w KQ - 3 16","score":47520}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1b1r/5k2/1P3n2/pBpQ3p/8/8/1PPP1PPP/RNB1K1NR b KQ - 4 16 color=b level=3
+[AI] best move: {"color":"b","from":"f7","to":"e7","piece":"k","flags":"n","san":"Ke7","lan":"f7e7","before":"rnbq1b1r/5k2/1P3n2/pBpQ3p/8/8/1PPP1PPP/RNB1K1NR b KQ - 4 16","after":"rnbq1b1r/4k3/1P3n2/pBpQ3p/8/8/1PPP1PPP/RNB1K1NR w KQ - 5 17","score":47530}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1b1r/1P2k3/5n2/pBpQ3p/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 17 color=b level=3
+[AI] best move: {"color":"b","from":"f6","to":"g8","piece":"n","flags":"n","san":"Ng8","lan":"f6g8","before":"rnbq1b1r/1P2k3/5n2/pBpQ3p/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 17","after":"rnbq1bnr/1P2k3/8/pBpQ3p/8/8/1PPP1PPP/RNB1K1NR w KQ - 1 18","score":47540}
+User disconnected: eha57GvI_88E08HvAAAN
+[0mPOST /api/auth/guest [32m201[0m 1861.163 ms - 1759[0m
+[0mGET /api/puzzles/daily [32m200[0m 1.956 ms - 149[0m
+User connected: jj9CmBCpk7p1ssTQAAAP
+=== Server AI Debug Logs ===
+[AI] computing move for f2360aa0-e7fd-4d0f-996f-2c8624766e50 fen=rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 color=b level=3
+[AI] best move: {"color":"b","from":"a7","to":"a5","piece":"p","flags":"b","san":"a5","lan":"a7a5","before":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1","after":"rnbqkbnr/1ppppppp/8/p7/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2","score":47855}
+[AI] computing move for f2360aa0-e7fd-4d0f-996f-2c8624766e50 fen=rnbqkbnr/1ppppppp/8/p7/3PP3/8/PPP2PPP/RNBQKBNR b KQkq - 0 2 color=b level=3
+[AI] best move: {"color":"b","from":"b7","to":"b5","piece":"p","flags":"b","san":"b5","lan":"b7b5","before":"rnbqkbnr/1ppppppp/8/p7/3PP3/8/PPP2PPP/RNBQKBNR b KQkq - 0 2","after":"rnbqkbnr/2pppppp/8/pp6/3PP3/8/PPP2PPP/RNBQKBNR w KQkq - 0 3","score":47860}
+[AI] computing move for f2360aa0-e7fd-4d0f-996f-2c8624766e50 fen=rnbqkbnr/2pppppp/8/pp1P4/4P3/8/PPP2PPP/RNBQKBNR b KQkq - 0 3 color=b level=3
+[AI] best move: {"color":"b","from":"g7","to":"g5","piece":"p","flags":"b","san":"g5","lan":"g7g5","before":"rnbqkbnr/2pppppp/8/pp1P4/4P3/8/PPP2PPP/RNBQKBNR b KQkq - 0 3","after":"rnbqkbnr/2pppp1p/8/pp1P2p1/4P3/8/PPP2PPP/RNBQKBNR w KQkq - 0 4","score":47900}
+[AI] computing move for f2360aa0-e7fd-4d0f-996f-2c8624766e50 fen=rnbqkbnr/2pppp1p/8/pp1PP1p1/8/8/PPP2PPP/RNBQKBNR b KQkq - 0 4 color=b level=3
+[AI] best move: {"color":"b","from":"c8","to":"a6","piece":"b","flags":"n","san":"Ba6","lan":"c8a6","before":"rnbqkbnr/2pppp1p/8/pp1PP1p1/8/8/PPP2PPP/RNBQKBNR b KQkq - 0 4","after":"rn1qkbnr/2pppp1p/b7/pp1PP1p1/8/8/PPP2PPP/RNBQKBNR w KQkq - 1 5","score":47895}
+[AI] computing move for f2360aa0-e7fd-4d0f-996f-2c8624766e50 fen=rn1qkbnr/2pppp1p/b3P3/pp1P2p1/8/8/PPP2PPP/RNBQKBNR b KQkq - 0 5 color=b level=3
+[AI] best move: {"color":"b","from":"a5","to":"a4","piece":"p","flags":"n","san":"a4","lan":"a5a4","before":"rn1qkbnr/2pppp1p/b3P3/pp1P2p1/8/8/PPP2PPP/RNBQKBNR b KQkq - 0 5","after":"rn1qkbnr/2pppp1p/b3P3/1p1P2p1/p7/8/PPP2PPP/RNBQKBNR w KQkq - 0 6","score":47895}
+[AI] computing move for f2360aa0-e7fd-4d0f-996f-2c8624766e50 fen=rn1qkbnr/2pppp1p/b2PP3/1p4p1/p7/8/PPP2PPP/RNBQKBNR b KQkq - 0 6 color=b level=3
+[AI] best move: {"color":"b","from":"f7","to":"f5","piece":"p","flags":"b","san":"f5","lan":"f7f5","before":"rn1qkbnr/2pppp1p/b2PP3/1p4p1/p7/8/PPP2PPP/RNBQKBNR b KQkq - 0 6","after":"rn1qkbnr/2ppp2p/b2PP3/1p3pp1/p7/8/PPP2PPP/RNBQKBNR w KQkq - 0 7","score":47930}
+[AI] computing move for 728b7ade-c943-444b-b300-1b46d847847b fen=rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 color=b level=5
+[AI] best move: {"color":"b","from":"a7","to":"a5","piece":"p","flags":"b","san":"a5","lan":"a7a5","before":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1","after":"rnbqkbnr/1ppppppp/8/p7/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2","score":47855}
+[AI] computing move for 728b7ade-c943-444b-b300-1b46d847847b fen=rnbqkbnr/1ppppppp/8/p7/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2 color=b level=5
+[AI] best move: {"color":"b","from":"b7","to":"b5","piece":"p","flags":"b","san":"b5","lan":"b7b5","before":"rnbqkbnr/1ppppppp/8/p7/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2","after":"rnbqkbnr/2pppppp/8/pp6/2B1P3/8/PPPP1PPP/RNBQK1NR w KQkq - 0 3","score":47880}
+[AI] computing move for 728b7ade-c943-444b-b300-1b46d847847b fen=rnbqkbnr/2pppppp/8/pp1B4/4P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 3 color=b level=5
+[AI] best move: {"color":"b","from":"g7","to":"g5","piece":"p","flags":"b","san":"g5","lan":"g7g5","before":"rnbqkbnr/2pppppp/8/pp1B4/4P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 3","after":"rnbqkbnr/2pppp1p/8/pp1B2p1/4P3/8/PPPP1PPP/RNBQK1NR w KQkq - 0 4","score":47925}
+[AI] computing move for 728b7ade-c943-444b-b300-1b46d847847b fen=rnbqkbnr/2pppp1p/8/pp1B2p1/4P3/5Q2/PPPP1PPP/RNB1K1NR b KQkq - 1 4 color=b level=5
+[AI] best move: {"color":"b","from":"h7","to":"h5","piece":"p","flags":"b","san":"h5","lan":"h7h5","before":"rnbqkbnr/2pppp1p/8/pp1B2p1/4P3/5Q2/PPPP1PPP/RNB1K1NR b KQkq - 1 4","after":"rnbqkbnr/2pppp2/8/pp1B2pp/4P3/5Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 5","score":47960}
+[AI] computing move for 096502ea-e6d4-434b-9175-a1d195f471de fen=rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 color=b level=5
+[AI] best move: {"color":"b","from":"a7","to":"a5","piece":"p","flags":"b","san":"a5","lan":"a7a5","before":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1","after":"rnbqkbnr/1ppppppp/8/p7/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2","score":47855}
+[AI] computing move for 096502ea-e6d4-434b-9175-a1d195f471de fen=rnbqkbnr/1ppppppp/8/p7/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2 color=b level=5
+[AI] best move: {"color":"b","from":"b7","to":"b5","piece":"p","flags":"b","san":"b5","lan":"b7b5","before":"rnbqkbnr/1ppppppp/8/p7/2B1P3/8/PPPP1PPP/RNBQK1NR b KQkq - 1 2","after":"rnbqkbnr/2pppppp/8/pp6/2B1P3/8/PPPP1PPP/RNBQK1NR w KQkq - 0 3","score":47880}
+[AI] computing move for 096502ea-e6d4-434b-9175-a1d195f471de fen=rnbqkbnr/2pppppp/8/pp6/4P3/1B6/PPPP1PPP/RNBQK1NR b KQkq - 1 3 color=b level=5
+[AI] best move: {"color":"b","from":"g7","to":"g5","piece":"p","flags":"b","san":"g5","lan":"g7g5","before":"rnbqkbnr/2pppppp/8/pp6/4P3/1B6/PPPP1PPP/RNBQK1NR b KQkq - 1 3","after":"rnbqkbnr/2pppp1p/8/pp4p1/4P3/1B6/PPPP1PPP/RNBQK1NR w KQkq - 0 4","score":47925}
+[AI] computing move for 096502ea-e6d4-434b-9175-a1d195f471de fen=rnbqkbnr/2pppp1p/8/pp4p1/4P3/1B3Q2/PPPP1PPP/RNB1K1NR b KQkq - 1 4 color=b level=5
+[AI] best move: {"color":"b","from":"h7","to":"h5","piece":"p","flags":"b","san":"h5","lan":"h7h5","before":"rnbqkbnr/2pppp1p/8/pp4p1/4P3/1B3Q2/PPPP1PPP/RNB1K1NR b KQkq - 1 4","after":"rnbqkbnr/2pppp2/8/pp4pp/4P3/1B3Q2/PPPP1PPP/RNB1K1NR w KQkq - 0 5","score":47960}
+[AI] computing move for 577b5d4a-56aa-4ef4-88b7-317f6124a7fc fen=rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 color=b level=3
+[AI] best move: {"color":"b","from":"g8","to":"h6","piece":"n","flags":"n","san":"Nh6","lan":"g8h6","before":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1","after":"rnbqkb1r/pppppppp/7n/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 1 2","score":47800}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbqkbnr/pppppppp/8/8/8/4P3/PPPP1PPP/RNBQKBNR b KQkq - 0 1 color=b level=3
+[AI] best move: {"color":"b","from":"a7","to":"a5","piece":"p","flags":"b","san":"a5","lan":"a7a5","before":"rnbqkbnr/pppppppp/8/8/8/4P3/PPPP1PPP/RNBQKBNR b KQkq - 0 1","after":"rnbqkbnr/1ppppppp/8/p7/8/4P3/PPPP1PPP/RNBQKBNR w KQkq - 0 2","score":47875}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbqkbnr/1ppppppp/8/p7/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2 color=b level=3
+[AI] best move: {"color":"b","from":"b7","to":"b5","piece":"p","flags":"b","san":"b5","lan":"b7b5","before":"rnbqkbnr/1ppppppp/8/p7/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2","after":"rnbqkbnr/2pppppp/8/pp6/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 3","score":47900}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbqkbnr/2pppppp/8/pp2P3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 3 color=b level=3
+[AI] best move: {"color":"b","from":"g7","to":"g5","piece":"p","flags":"b","san":"g5","lan":"g7g5","before":"rnbqkbnr/2pppppp/8/pp2P3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 3","after":"rnbqkbnr/2pppp1p/8/pp2P1p1/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 4","score":47940}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbqkbnr/2pppp1p/4P3/pp4p1/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 4 color=b level=3
+[AI] best move: {"color":"b","from":"h7","to":"h5","piece":"p","flags":"b","san":"h5","lan":"h7h5","before":"rnbqkbnr/2pppp1p/4P3/pp4p1/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 4","after":"rnbqkbnr/2pppp2/4P3/pp4pp/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 5","score":47980}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbqkbnr/2pppP2/8/pp4pp/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 5 color=b level=3
+[AI] best move: {"color":"b","from":"e8","to":"f7","piece":"k","captured":"p","flags":"c","san":"Kxf7","lan":"e8f7","before":"rnbqkbnr/2pppP2/8/pp4pp/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 5","after":"rnbq1bnr/2pppk2/8/pp4pp/8/8/PPPP1PPP/RNBQKBNR w KQ - 0 6","score":47850}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbq1bnr/2pppk2/8/pB4pp/8/8/PPPP1PPP/RNBQK1NR b KQ - 0 6 color=b level=3
+[AI] best move: {"color":"b","from":"c7","to":"c5","piece":"p","flags":"b","san":"c5","lan":"c7c5","before":"rnbq1bnr/2pppk2/8/pB4pp/8/8/PPPP1PPP/RNBQK1NR b KQ - 0 6","after":"rnbq1bnr/3ppk2/8/pBp3pp/8/8/PPPP1PPP/RNBQK1NR w KQ - 0 7","score":47780}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbq1bnr/3ppk2/8/p1p3pp/2B5/8/PPPP1PPP/RNBQK1NR b KQ - 1 7 color=b level=3
+[AI] best move: {"color":"b","from":"d7","to":"d5","piece":"p","flags":"b","san":"d5","lan":"d7d5","before":"rnbq1bnr/3ppk2/8/p1p3pp/2B5/8/PPPP1PPP/RNBQK1NR b KQ - 1 7","after":"rnbq1bnr/4pk2/8/p1pp2pp/2B5/8/PPPP1PPP/RNBQK1NR w KQ - 0 8","score":47800}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbq1bnr/4pk2/8/p1pB2pp/8/8/PPPP1PPP/RNBQK1NR b KQ - 0 8 color=b level=3
+[AI] best move: {"color":"b","from":"e7","to":"e6","piece":"p","flags":"n","san":"e6","lan":"e7e6","before":"rnbq1bnr/4pk2/8/p1pB2pp/8/8/PPPP1PPP/RNBQK1NR b KQ - 0 8","after":"rnbq1bnr/5k2/4p3/p1pB2pp/8/8/PPPP1PPP/RNBQK1NR w KQ - 0 9","score":47745}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbq1bnr/5k2/4p3/p1pB2pp/8/5Q2/PPPP1PPP/RNB1K1NR b KQ - 1 9 color=b level=3
+[AI] best move: {"color":"b","from":"f7","to":"e8","piece":"k","flags":"n","san":"Ke8","lan":"f7e8","before":"rnbq1bnr/5k2/4p3/p1pB2pp/8/5Q2/PPPP1PPP/RNB1K1NR b KQ - 1 9","after":"rnbqkbnr/8/4p3/p1pB2pp/8/5Q2/PPPP1PPP/RNB1K1NR w KQ - 2 10","score":47745}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbqkbnr/8/4p3/p1p3pp/8/1B3Q2/PPPP1PPP/RNB1K1NR b KQ - 3 10 color=b level=3
+[AI] best move: {"color":"b","from":"c5","to":"c4","piece":"p","flags":"n","san":"c4","lan":"c5c4","before":"rnbqkbnr/8/4p3/p1p3pp/8/1B3Q2/PPPP1PPP/RNB1K1NR b KQ - 3 10","after":"rnbqkbnr/8/4p3/p5pp/2p5/1B3Q2/PPPP1PPP/RNB1K1NR w KQ - 0 11","score":47755}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbqkbnr/8/4p3/p5pp/B1p5/5Q2/PPPP1PPP/RNB1K1NR b KQ - 1 11 color=b level=3
+[AI] best move: {"color":"b","from":"e8","to":"e7","piece":"k","flags":"n","san":"Ke7","lan":"e8e7","before":"rnbqkbnr/8/4p3/p5pp/B1p5/5Q2/PPPP1PPP/RNB1K1NR b KQ - 1 11","after":"rnbq1bnr/4k3/4p3/p5pp/B1p5/5Q2/PPPP1PPP/RNB1K1NR w KQ - 2 12","score":47775}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbq1bnr/4k3/4p3/p5pp/B1p5/5Q1N/PPPP1PPP/RNB1K2R b KQ - 3 12 color=b level=3
+[AI] best move: {"color":"b","from":"c4","to":"c3","piece":"p","flags":"n","san":"c3","lan":"c4c3","before":"rnbq1bnr/4k3/4p3/p5pp/B1p5/5Q1N/PPPP1PPP/RNB1K2R b KQ - 3 12","after":"rnbq1bnr/4k3/4p3/p5pp/B7/2p2Q1N/PPPP1PPP/RNB1K2R w KQ - 0 13","score":47775}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnbq1bnr/4k3/4p3/p5Np/B7/2p2Q2/PPPP1PPP/RNB1K2R b KQ - 0 13 color=b level=3
+[AI] best move: {"color":"b","from":"d8","to":"b6","piece":"q","flags":"n","san":"Qb6","lan":"d8b6","before":"rnbq1bnr/4k3/4p3/p5Np/B7/2p2Q2/PPPP1PPP/RNB1K2R b KQ - 0 13","after":"rnb2bnr/4k3/1q2p3/p5Np/B7/2p2Q2/PPPP1PPP/RNB1K2R w KQ - 1 14","score":47640}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnb2bnr/4k3/1q2p3/p5Np/B7/2P2Q2/PPP2PPP/RNB1K2R b KQ - 0 14 color=b level=3
+[AI] best move: {"color":"b","from":"b6","to":"a7","piece":"q","flags":"n","san":"Qa7","lan":"b6a7","before":"rnb2bnr/4k3/1q2p3/p5Np/B7/2P2Q2/PPP2PPP/RNB1K2R b KQ - 0 14","after":"rnb2bnr/q3k3/4p3/p5Np/B7/2P2Q2/PPP2PPP/RNB1K2R w KQ - 1 15","score":47530}
+[AI] computing move for d4ec89cf-eedb-49c6-9101-8d8972829892 fen=rnb2bnr/q3k3/4p3/p5Np/B7/2P2Q2/PPP2PPP/RNB2K1R b - - 2 15 color=b level=3
+[AI] best move: {"color":"b","from":"h8","to":"h6","piece":"r","flags":"n","san":"Rh6","lan":"h8h6","before":"rnb2bnr/q3k3/4p3/p5Np/B7/2P2Q2/PPP2PPP/RNB2K1R b - - 2 15","after":"rnb2bn1/q3k3/4p2r/p5Np/B7/2P2Q2/PPP2PPP/RNB2K1R w - - 3 16","score":47525}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1 color=b level=3
+[AI] best move: {"color":"b","from":"a7","to":"a5","piece":"p","flags":"b","san":"a5","lan":"a7a5","before":"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1","after":"rnbqkbnr/1ppppppp/8/p7/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2","score":47855}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbqkbnr/1ppppppp/8/p3P3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2 color=b level=3
+[AI] best move: {"color":"b","from":"b7","to":"b5","piece":"p","flags":"b","san":"b5","lan":"b7b5","before":"rnbqkbnr/1ppppppp/8/p3P3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2","after":"rnbqkbnr/2pppppp/8/pp2P3/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 3","score":47895}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbqkbnr/2pppppp/4P3/pp6/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 3 color=b level=3
+[AI] best move: {"color":"b","from":"g7","to":"g5","piece":"p","flags":"b","san":"g5","lan":"g7g5","before":"rnbqkbnr/2pppppp/4P3/pp6/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 3","after":"rnbqkbnr/2pppp1p/4P3/pp4p1/8/8/PPPP1PPP/RNBQKBNR w KQkq - 0 4","score":47935}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbqkbnr/2pPpp1p/8/pp4p1/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 4 color=b level=3
+[AI] best move: {"color":"b","from":"e8","to":"d7","piece":"k","captured":"p","flags":"c","san":"Kxd7","lan":"e8d7","before":"rnbqkbnr/2pPpp1p/8/pp4p1/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 4","after":"rnbq1bnr/2pkpp1p/8/pp4p1/8/8/PPPP1PPP/RNBQKBNR w KQ - 0 5","score":47815}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1bnr/2pkpp1p/8/pp4p1/P7/8/1PPP1PPP/RNBQKBNR b KQ - 0 5 color=b level=3
+[AI] best move: {"color":"b","from":"h7","to":"h5","piece":"p","flags":"b","san":"h5","lan":"h7h5","before":"rnbq1bnr/2pkpp1p/8/pp4p1/P7/8/1PPP1PPP/RNBQKBNR b KQ - 0 5","after":"rnbq1bnr/2pkpp2/8/pp4pp/P7/8/1PPP1PPP/RNBQKBNR w KQ - 0 6","score":47865}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1bnr/2pkpp2/8/pP4pp/8/8/1PPP1PPP/RNBQKBNR b KQ - 0 6 color=b level=3
+[AI] best move: {"color":"b","from":"c7","to":"c5","piece":"p","flags":"b","san":"c5","lan":"c7c5","before":"rnbq1bnr/2pkpp2/8/pP4pp/8/8/1PPP1PPP/RNBQKBNR b KQ - 0 6","after":"rnbq1bnr/3kpp2/8/pPp3pp/8/8/1PPP1PPP/RNBQKBNR w KQ c6 0 7","score":47805}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1bnr/3kpp2/1P6/p1p3pp/8/8/1PPP1PPP/RNBQKBNR b KQ - 0 7 color=b level=3
+[AI] best move: {"color":"b","from":"f7","to":"f5","piece":"p","flags":"b","san":"f5","lan":"f7f5","before":"rnbq1bnr/3kpp2/1P6/p1p3pp/8/8/1PPP1PPP/RNBQKBNR b KQ - 0 7","after":"rnbq1bnr/3kp3/1P6/p1p2ppp/8/8/1PPP1PPP/RNBQKBNR w KQ - 0 8","score":47840}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1bnr/3kp3/1P6/p1p2ppp/8/8/1PPPQPPP/RNB1KBNR b KQ - 1 8 color=b level=3
+[AI] best move: {"color":"b","from":"e7","to":"e5","piece":"p","flags":"b","san":"e5","lan":"e7e5","before":"rnbq1bnr/3kp3/1P6/p1p2ppp/8/8/1PPPQPPP/RNB1KBNR b KQ - 1 8","after":"rnbq1bnr/3k4/1P6/p1p1pppp/8/8/1PPPQPPP/RNB1KBNR w KQ - 0 9","score":47860}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1bnr/3k4/1P6/p1p1pppp/8/4Q3/1PPP1PPP/RNB1KBNR b KQ - 1 9 color=b level=3
+[AI] best move: {"color":"b","from":"g8","to":"f6","piece":"n","flags":"n","san":"Nf6","lan":"g8f6","before":"rnbq1bnr/3k4/1P6/p1p1pppp/8/4Q3/1PPP1PPP/RNB1KBNR b KQ - 1 9","after":"rnbq1b1r/3k4/1P3n2/p1p1pppp/8/4Q3/1PPP1PPP/RNB1KBNR w KQ - 2 10","score":47805}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1b1r/3k4/1P3n2/pBp1pppp/8/4Q3/1PPP1PPP/RNB1K1NR b KQ - 3 10 color=b level=3
+[AI] best move: {"color":"b","from":"d7","to":"e7","piece":"k","flags":"n","san":"Ke7","lan":"d7e7","before":"rnbq1b1r/3k4/1P3n2/pBp1pppp/8/4Q3/1PPP1PPP/RNB1K1NR b KQ - 3 10","after":"rnbq1b1r/4k3/1P3n2/pBp1pppp/8/4Q3/1PPP1PPP/RNB1K1NR w KQ - 4 11","score":47790}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1b1r/4k3/1P3n2/pBp1Qppp/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 11 color=b level=3
+[AI] best move: {"color":"b","from":"e7","to":"f7","piece":"k","flags":"n","san":"Kf7","lan":"e7f7","before":"rnbq1b1r/4k3/1P3n2/pBp1Qppp/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 11","after":"rnbq1b1r/5k2/1P3n2/pBp1Qppp/8/8/1PPP1PPP/RNB1K1NR w KQ - 1 12","score":47705}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1b1r/5k2/1P3n2/pBp2Qpp/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 12 color=b level=3
+[AI] best move: {"color":"b","from":"f7","to":"e7","piece":"k","flags":"n","san":"Ke7","lan":"f7e7","before":"rnbq1b1r/5k2/1P3n2/pBp2Qpp/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 12","after":"rnbq1b1r/4k3/1P3n2/pBp2Qpp/8/8/1PPP1PPP/RNB1K1NR w KQ - 1 13","score":47625}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1b1r/4k3/1P3n2/pBp1Q1pp/8/8/1PPP1PPP/RNB1K1NR b KQ - 2 13 color=b level=3
+[AI] best move: {"color":"b","from":"c8","to":"e6","piece":"b","flags":"n","san":"Be6","lan":"c8e6","before":"rnbq1b1r/4k3/1P3n2/pBp1Q1pp/8/8/1PPP1PPP/RNB1K1NR b KQ - 2 13","after":"rn1q1b1r/4k3/1P2bn2/pBp1Q1pp/8/8/1PPP1PPP/RNB1K1NR w KQ - 3 14","score":47605}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rn1q1b1r/4k3/1P2bn2/pBp3Qp/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 14 color=b level=3
+[AI] best move: {"color":"b","from":"e6","to":"c8","piece":"b","flags":"n","san":"Bc8","lan":"e6c8","before":"rn1q1b1r/4k3/1P2bn2/pBp3Qp/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 14","after":"rnbq1b1r/4k3/1P3n2/pBp3Qp/8/8/1PPP1PPP/RNB1K1NR w KQ - 1 15","score":47535}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1b1r/4k3/1P3n2/pBp1Q2p/8/8/1PPP1PPP/RNB1K1NR b KQ - 2 15 color=b level=3
+[AI] best move: {"color":"b","from":"e7","to":"f7","piece":"k","flags":"n","san":"Kf7","lan":"e7f7","before":"rnbq1b1r/4k3/1P3n2/pBp1Q2p/8/8/1PPP1PPP/RNB1K1NR b KQ - 2 15","after":"rnbq1b1r/5k2/1P3n2/pBp1Q2p/8/8/1PPP1PPP/RNB1K1NR w KQ - 3 16","score":47520}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1b1r/5k2/1P3n2/pBpQ3p/8/8/1PPP1PPP/RNB1K1NR b KQ - 4 16 color=b level=3
+[AI] best move: {"color":"b","from":"f7","to":"e7","piece":"k","flags":"n","san":"Ke7","lan":"f7e7","before":"rnbq1b1r/5k2/1P3n2/pBpQ3p/8/8/1PPP1PPP/RNB1K1NR b KQ - 4 16","after":"rnbq1b1r/4k3/1P3n2/pBpQ3p/8/8/1PPP1PPP/RNB1K1NR w KQ - 5 17","score":47530}
+[AI] computing move for e461faa9-f7a2-4442-a401-d4971683d235 fen=rnbq1b1r/1P2k3/5n2/pBpQ3p/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 17 color=b level=3
+[AI] best move: {"color":"b","from":"f6","to":"g8","piece":"n","flags":"n","san":"Ng8","lan":"f6g8","before":"rnbq1b1r/1P2k3/5n2/pBpQ3p/8/8/1PPP1PPP/RNB1K1NR b KQ - 0 17","after":"rnbq1bnr/1P2k3/8/pBpQ3p/8/8/1PPP1PPP/RNB1K1NR w KQ - 1 18","score":47540}
+=== Current git log ===
+9ea278b fix: remove capture indicators entirely (only green dots on empty squares)
+dcd30a4 fix: also check that it's player's turn before allowing selection
+884ce7c fix: use playerColor to filter piece selection (not FEN current turn)
+57d27af fix: apply bot move to chess.js (critical), improve legal move indicators
+08f755e fix: apply bot move to chess.js before emitting FEN (bot was not actually moving)
+bf90c06 chore: trigger APK build
+e46b189 chore: add debug logging to _triggerAIBotMove
+0fe436d fix: move SVGs to assets/images/pieces/
+736e18b feat: SVG chess pieces (cburnett), game over dialog, improved capture indicators
+f26d3e4 fix: respect FEN active turn when selecting pieces on board
+8d536fd fix: wrap chess.move() in try-catch to prevent server crash on illegal moves
+57202c5 chore: remove duplicate backend/firebase.js
+951c852 fix: board orientation inverted (isFlipped=false showed white at top) and use widget.playerColor for isFlipped
+3f55edf Smooth chess board: add drag-and-drop, tap-to-select, highlighted squares, animations
+0380bb0 Fix crash: replace .once() with .on() (not available in socket_io_client 2.x)
+f12658d Fix dotenv path to use __dirname for reliable .env loading
+2264b36 Fix AI game join: check activeGames before Firestore read
+b2a9a27 Fix white screen: emit game:join in GameScreen, fix move data parsing
+1d29ab7 Skip Firestore write in endGame for bot games
+515c954 Fix AI game: skip Firestore write, create in-memory only for speed
+=== File: chess_board.dart (legal move section) ===
+108:          onTapUp: widget.interactive ? (details) => _handleTap(details, sqSize) : null,
+109:          onPanStart: widget.interactive ? (details) => _onPanStart(details, sqSize) : null,
+134:                      child: _buildPiece(
+151:  bool _allowedToSelect(String piece) {
+160:  void _onPanStart(DragStartDetails details, double sqSize) {
+169:    if (!_allowedToSelect(piece)) return;
+210:  void _handleTap(TapUpDetails details, double sqSize) {
+219:      if (piece != '' && _allowedToSelect(piece)) {
+250:        final isLegalTarget = _legalMoves.contains(squareName) && _selectedSquare != null;
+270:                  if (isLegalTarget && piece == '')
+290:                      child: _buildPiece(piece, sqSize, false),
+333:  Widget _buildPiece(String piece, double size, bool isDragging) {

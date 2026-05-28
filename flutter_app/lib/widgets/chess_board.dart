@@ -258,7 +258,7 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget>
               height: sqSize,
               decoration: BoxDecoration(
                 color: isSelected
-                    ? AppTheme.primaryGreen.withOpacity(0.5)
+                    ? AppTheme.primaryGreen.withOpacity(0.6)
                     : isLastMove
                         ? const Color(0x55FFFF00)
                         : isLight
@@ -267,7 +267,7 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget>
               ),
               child: Stack(
                 children: [
-                  if (isLegalTarget && piece == '')
+                  if (isLegalTarget && piece == '' && widget.playerColor == null)
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(color: AppTheme.primaryGreen.withOpacity(0.3), width: 1),
