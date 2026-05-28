@@ -202,45 +202,56 @@ class GameHandler {
     const { uid, username, difficulty, playerColor } = data;
     const gameId = uuidv4();
     const botColor = playerColor === 'white' ? 'b' : 'w';
-    const humanColor = playerColor === 'white' ? 'w' : 'b';
-
-    const botName = `Bot_${['Easy','Med','Hard','Exp','GM'][difficulty || 3]}`;
+    const botName = ['Bot_Easy','Bot_Easy','Bot_Medium','Bot_Hard','Bot_Expert','Bot_GM'][difficulty || 3] || 'Bot_Medium';
     const botElo = [800, 1100, 1500, 1900, 2200, 2600][difficulty || 3] || 1500;
 
-    const white =
-      humanColor === 'w'
-        ? { uid, username, elo: 1200 }
-        : { uid: `bot_${gameId}`, username: botName, elo: botElo };
-    const black =
-      humanColor === 'b'
-        ? { uid, username, elo: 1200 }
-        : { uid: `bot_${gameId}`, username: botName, elo: botElo };
+    const isHumanWhite = playerColor === 'white';
+    const players = {
+      white: isHumanWhite
+        ? { uid, username, elo: 1200, clock: 600, disconnected: false, moveTimes: [] }
+        : { uid: `bot_${gameId}`, username: botName, elo: botElo, clock: 600, disconnected: false, moveTimes: [] },
+      black: !isHumanWhite
+        ? { uid, username, elo: 1200, clock: 600, disconnected: false, moveTimes: [] }
+        : { uid: `bot_${gameId}`, username: botName, elo: botElo, clock: 600, disconnected: false, moveTimes: [] },
+    };
 
-    const gameData = {
+    const game = {
       gameId,
-      whiteUid: white.uid,
-      whiteUsername: white.username,
-      whiteElo: white.elo,
-      blackUid: black.uid,
-      blackUsername: black.username,
-      blackElo: black.elo,
+      id: gameId,
+      players,
       timeControl: 'rapid',
       initialTime: 600,
       increment: 5,
+      status: 'active',
+      result: null,
+      winner: null,
+      winReason: null,
+      moves: [],
+      moveHistory: [],
+      pgn: '',
+      fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+      currentTurn: 'w',
       isRated: false,
+      isTournament: false,
+      tournamentId: null,
+      isPrivate: false,
+      inviteCode: null,
       isBot: true,
       botLevel: difficulty || 3,
       botColor,
-    };
-
-    const game = await Game.createGame(gameData);
-
-    activeGames.set(gameId, {
-      ...game,
+      startTime: new Date().toISOString(),
+      endTime: null,
+      lastMoveTime: new Date().toISOString(),
+      moveCount: 0,
+      spectators: [],
+      chat: [],
+      analysis: null,
+      movedAt: {},
       clocks: { white: 600, black: 600 },
       lastTick: Date.now(),
-    });
+    };
 
+    activeGames.set(gameId, game);
     this.socket.emit('game:created', { gameId, playerColor });
   }
 
