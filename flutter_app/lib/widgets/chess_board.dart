@@ -227,21 +227,9 @@ class _ChessBoardWidgetState extends State<ChessBoardWidget> {
               color: isSelected
                   ? _selectedColor
                   : isLight ? _lightSquare : _darkSquare,
+              border: isSelected ? Border.all(color: const Color(0xFF4A6B3A), width: 3) : null,
             ),
-            child: piece != ''
-                ? Center(child: _buildPiece(piece, sqSize))
-                : _legalMoves.contains(sq)
-                    ? Center(
-                        child: Container(
-                          width: sqSize * 0.3,
-                          height: sqSize * 0.3,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color(0x8082962C),
-                          ),
-                        ),
-                      )
-                    : null,
+            child: piece != '' ? Center(child: _buildPiece(piece, sqSize)) : null,
           ),
         ));
       }
